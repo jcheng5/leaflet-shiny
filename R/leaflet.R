@@ -38,8 +38,8 @@ createLeafletMap <- function(session, outputId) {
                             layerId = NULL, options=list()) {
       send('addRectangle', lat1, lng1, lat2, lng2, layerId, options)
     },
-    addCircle = function(lat, lng, radius, layerId = NULL, options=list()) {
-      send('addCircle', lat, lng, radius, layerId, options)
+    addCircle = function(lat, lng, radius, layerId = NULL, options=list(), eachOptions=list()) {
+      send('addCircle', lat, lng, radius, layerId, options, eachOptions)
     },
     addPolygon = function(lat, lng, layerId, options, defaultOptions) {
       send('addPolygon', lat, lng, layerId, options, defaultOptions)

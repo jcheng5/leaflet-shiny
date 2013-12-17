@@ -89,6 +89,27 @@
     return val;
   }
 
+  function mergeOptions(length, options, eachOptions) {
+    if (!eachOptions)
+      return function() { return options || {}; }
+
+    var keys = [];
+    $.each(eachOptions, function(key, value) {
+      eachOptions[key] = vectorize(eachOptions[key], length);
+      keys.push(key);
+    });
+
+    var allOptions = [];
+    for (var i = 0; i < length; i++) {
+      console.log(i);
+      var thisOptions = {};
+      for (var j = 0; j < keys.length; j++)
+        thisOptions[keys[j]] = eachOptions[keys[j]][i];
+      allOptions.push($.extend({}, options, thisOptions));
+    }
+    return function(index) { return allOptions[index]; };
+  }
+
   var methods = {};
 
   methods.setView = function(lat, lng, zoom, forceReset) {
@@ -201,15 +222,16 @@
     };
   }
 
-  methods.addCircle = function(lat, lng, radius, layerId, options) {
+  methods.addCircle = function(lat, lng, radius, layerId, options, eachOptions) {
     lat = vectorize(lat);
     lng = vectorize(lng, lat.length);
     radius = vectorize(radius, lat.length);
     layerId = vectorize(layerId, lat.length);
+    optionGetter = mergeOptions(lat.length, options, eachOptions);
     
     for (var i = 0; i < lat.length; i++) {
       (function() {
-        var circle = L.circle([lat[i], lng[i]], radius[i], options);
+        var circle = L.circle([lat[i], lng[i]], radius[i], optionGetter(i));
         var thisId = layerId[i];
         this.shapes.add(circle, thisId);
         circle.on('click', mouseHandler(this.id, thisId, 'shape_click'), this);
