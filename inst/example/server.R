@@ -72,6 +72,15 @@ shinyServer(function(input, output, session) {
   # object that lets us control the leaflet map on the page.
   map <- createLeafletMap(session, 'map')
   
+  session$onFlushed(once = TRUE, function() {
+    counties <- maps::map('county', fill=TRUE, plot=FALSE)
+    map$addPolygon(I(counties$y), I(counties$x), I(counties$names),
+                   I(lapply(palette(), function(x) {
+                     list(fillColor = x)
+                   })),
+                   list(fill=TRUE, stroke=FALSE, fillOpacity=0.5))
+  })
+  
   bindEvent(input$map_click, function() {
     values$selectedCity <- NULL
     if (!input$addMarkerOnClick)
@@ -87,26 +96,6 @@ shinyServer(function(input, output, session) {
     values$markers <- NULL
   })
   
-  radiusFactor <- 1000
-  observe({
-    map$clearShapes()
-    cities <- topCitiesInBounds()
-
-    if (nrow(cities) == 0)
-      return()
-    
-    map$addCircle(
-      cities$Lat,
-      cities$Long,
-      sqrt(cities[[popCol()]]) * radiusFactor / max(5, input$map_zoom)^2,
-      row.names(cities),
-      list(
-        weight=1.2,
-        fill=TRUE,
-        color='#4A9'
-      )
-    )
-  })
   
   bindEvent(input$map_shape_click, function() {
     event <- input$map_shape_click
