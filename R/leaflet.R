@@ -8,50 +8,54 @@ createLeafletMap <- function(session, outputId) {
   # method parameter indicates what leaflet operation we want to perform,
   # and the other arguments will be serialized to JS objects and used as
   # client side function args.
-  send <- function(method, ...) {
+  send <- function(method, func, msg) {
+    
+    msg <- msg[names(formals(func))]
+    names(msg) <- NULL
+    
     origDigits <- getOption('digits')
     options(digits=22)
     on.exit(options(digits=origDigits))
     session$sendCustomMessage('leaflet', list(
       mapId = outputId,
       method = method,
-      args = list(...)
+      args = msg
     ))
   }
   list(
     setView = function(lat, lng, zoom, forceReset = FALSE) {
-      send('setView', lat, lng, zoom, forceReset)
+      send('setView', sys.function(), as.list(environment()))
     },
     addMarker = function(lat, lng, layerId = NULL, options = list()) {
-      send('addMarker', lat, lng, layerId, options)
+      send('addMarker', sys.function(), as.list(environment()))
     },
     clearMarkers = function() {
-      send('clearMarkers')
+      send('clearMarkers', sys.function(), as.list(environment()))
     },
     clearShapes = function() {
-      send('clearShapes')
+      send('clearShapes', sys.function(), as.list(environment()))
     },
     fitBounds = function(lat1, lng1, lat2, lng2) {
-      send('fitBounds', lat1, lng1, lat2, lng2)
+      send('fitBounds', sys.function(), as.list(environment()))
     },
     addRectangle = function(lat1, lng1, lat2, lng2,
                             layerId = NULL, options=list()) {
-      send('addRectangle', lat1, lng1, lat2, lng2, layerId, options)
+      send('addRectangle', sys.function(), as.list(environment()))
     },
-    addCircle = function(lat, lng, radius, layerId = NULL, options=list(), eachOptions=list()) {
-      send('addCircle', lat, lng, radius, layerId, options, eachOptions)
+    addCircle = function(lat, lng, radius, layerId = NULL, options=list()) {
+      send('addCircle', sys.function(), as.list(environment()))
     },
     addPolygon = function(lat, lng, layerId, options, defaultOptions) {
-      send('addPolygon', lat, lng, layerId, options, defaultOptions)
+      send('addPolygon', sys.function(), as.list(environment()))
     },
     showPopup = function(lat, lng, content, layerId = NULL, options=list()) {
-      send('showPopup', lat, lng, content, layerId, options)
+      send('showPopup', sys.function(), as.list(environment()))
     },
     removePopup = function(layerId) {
-      send('removePopup', layerId)
+      send('removePopup', sys.function(), as.list(environment()))
     },
     clearPopups = function() {
-      send('clearPopups')
+      send('clearPopups', sys.function(), as.list(environment()))
     }
   )
 }
