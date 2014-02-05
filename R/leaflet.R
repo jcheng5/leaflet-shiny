@@ -77,7 +77,11 @@ leafletMap <- function(
 <!--[if lte IE 8]>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
 <![endif]-->
-<script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>'),
+<link rel="stylesheet" href="leaflet/leaflet.awesome-markers.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+<script src="leaflet/leaflet.awesome-markers.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+</script>'),
         tags$script(src="leaflet/binding.js")
       )
     ),

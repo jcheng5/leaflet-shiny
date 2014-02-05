@@ -97,7 +97,17 @@
 
   methods.addMarker = function(lat, lng, layerId, options) {
     var self = this;
+    
+    var awesomeMarker;
+    if (options.awesome){
+      options.awesome.prefix = 'fa';
+      awesomeMarker = L.AwesomeMarkers.icon(options.awesome);      
+      options.icon = awesomeMarker;
+    }
+    delete options.awesome;
+    
     var marker = L.marker([lat, lng], options);
+    
     this.markers.add(marker, layerId);
     marker.on('click', function(e) {
       Shiny.onInputChange(self.id + '_marker_click', {
