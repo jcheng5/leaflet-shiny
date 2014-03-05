@@ -1,5 +1,5 @@
-library(leaflet)
-library(ShinyDash)
+library(leaflet) # To install, run devtools::install_github('leaflet-shiny', 'jcheng5') #See https://groups.google.com/forum/#!topic/shiny-discuss/V7WUQA7aAiI
+library(ShinyDash) # To install, run devtools::install_github('ShinyDash', 'trestletech') #See https://groups.google.com/forum/#!topic/shiny-discuss/V7WUQA7aAiI
 
 row <- function(...) {
   tags$div(class="row", ...)
