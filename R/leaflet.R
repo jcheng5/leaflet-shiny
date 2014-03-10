@@ -22,41 +22,58 @@ createLeafletMap <- function(session, outputId) {
       args = msg
     ))
   }
-  list(
-    setView = function(lat, lng, zoom, forceReset = FALSE) {
-      send('setView', sys.function(), as.list(environment()))
-    },
-    addMarker = function(lat, lng, layerId = NULL, options = list()) {
-      send('addMarker', sys.function(), as.list(environment()))
-    },
-    clearMarkers = function() {
-      send('clearMarkers', sys.function(), as.list(environment()))
-    },
-    clearShapes = function() {
-      send('clearShapes', sys.function(), as.list(environment()))
-    },
-    fitBounds = function(lat1, lng1, lat2, lng2) {
-      send('fitBounds', sys.function(), as.list(environment()))
-    },
-    addRectangle = function(lat1, lng1, lat2, lng2,
-                            layerId = NULL, options=list()) {
-      send('addRectangle', sys.function(), as.list(environment()))
-    },
-    addCircle = function(lat, lng, radius, layerId = NULL, options=list()) {
-      send('addCircle', sys.function(), as.list(environment()))
-    },
-    addPolygon = function(lat, lng, layerId, options, defaultOptions) {
-      send('addPolygon', sys.function(), as.list(environment()))
-    },
-    showPopup = function(lat, lng, content, layerId = NULL, options=list()) {
-      send('showPopup', sys.function(), as.list(environment()))
-    },
-    removePopup = function(layerId) {
-      send('removePopup', sys.function(), as.list(environment()))
-    },
-    clearPopups = function() {
-      send('clearPopups', sys.function(), as.list(environment()))
-    }
+  
+  baseimpl <- function() {
+    send(`__name__`, sys.function(), as.list(environment()))
+  }
+  
+  # Turns a call like:
+  #
+  #     stub(setView(lat, lng, zoom, forceReset = FALSE))
+  #
+  # into:
+  #
+  #     list(setView = function(lat, lng, zoom, forceReset = FALSE) {
+  #       send("setView", sys.function(), as.list(environment()))
+  #     })
+  stub <- function(prototype) {
+    # Get the un-evaluated expression
+    p <- substitute(prototype)
+    # The function name is the first element
+    name <- as.character(p[[1]])
+    
+    # Get textual representation of the expression; change name to "function"
+    # and add a NULL function body
+    txt <- paste(deparse(p), collapse = "\n")
+    txt <- sub(name, "function", txt, fixed = TRUE)
+    txt <- paste0(txt, "NULL")
+    
+    # Create the function
+    func <- eval(parse(text = txt))
+    
+    # Replace the function body, using baseimpl's body as a template
+    body(func) <- substituteDirect(
+      body(baseimpl),
+      as.environment(list("__name__"=name))
+    )
+    environment(func) <- environment(baseimpl)
+    
+    # Return as list
+    structure(list(func), names = name)
+  }
+  
+  c(
+    stub(setView(lat, lng, zoom, forceReset = FALSE)),
+    stub(addMarker(lat, lng, layerId = NULL, options = list())),
+    stub(clearMarkers()),
+    stub(clearShapes()),
+    stub(fitBounds(lat1, lng1, lat2, lng2)),
+    stub(addCircle(lat, lng, radius, layerId = NULL, options=list(), eachOptions=list())),
+    stub(addRectangle(lat1, lng1, lat2, lng2, layerId = NULL, options=list())),
+    stub(addPolygon(lat, lng, layerId, options, defaultOptions)),
+    stub(showPopup(lat, lng, content, layerId = NULL, options=list())),
+    stub(removePopup(layerId)),
+    stub(clearPopups())
   )
 }
 

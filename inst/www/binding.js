@@ -364,7 +364,7 @@ var dataframe = (function() {
     };
   }
 
-  methods.addCircle = function(lat, lng, radius, layerId, options) {
+  methods.addCircle = function(lat, lng, radius, layerId, options, eachOptions) {
     var df = dataframe.create()
       .col('lat', lat)
       .col('lng', lng)

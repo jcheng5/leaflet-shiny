@@ -15,7 +15,7 @@ shinyUI(fluidPage(
   ),
   fluidRow(
     column(8, offset=3,
-      h2('Population of U.S. Cities'),
+      h2('Population of US cities'),
       htmlWidgetOutput(
         outputId = 'desc',
         HTML(paste(
