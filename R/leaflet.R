@@ -73,15 +73,11 @@ leafletMap <- function(
   tagList(
     singleton(
       tags$head(
-        HTML('<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
-<!--[if lte IE 8]>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
-<![endif]-->
-<link rel="stylesheet" href="leaflet/leaflet.awesome-markers.css" />
-<script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
-<script src="leaflet/leaflet.awesome-markers.min.js"></script>
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
-</script>'),
+        tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet.css"),
+        tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet.awesome-markers.css"),
+        tags$script(src="leaflet/leaflet.js"),
+        tags$script(src="leaflet/leaflet.awesome-markers.min.js"),
+        tags$link(rel="stylesheet", type="text/css", href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"),
         tags$script(src="leaflet/binding.js")
       )
     ),
