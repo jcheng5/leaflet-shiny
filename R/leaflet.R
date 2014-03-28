@@ -73,7 +73,9 @@ createLeafletMap <- function(session, outputId) {
     stub(addPolygon(lat, lng, layerId, options, defaultOptions)),
     stub(showPopup(lat, lng, content, layerId = NULL, options=list())),
     stub(removePopup(layerId)),
-    stub(clearPopups())
+    stub(clearPopups()),
+    stub(addGeoJSON(x, layerId = NULL)),
+    stub(clearGeoJSON(layerId))
   )
 }
 

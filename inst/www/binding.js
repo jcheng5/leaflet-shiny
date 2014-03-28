@@ -181,6 +181,7 @@ var dataframe = (function() {
         map.markers = new LayerStore(map);
         map.shapes = new LayerStore(map);
         map.popups = new LayerStore(map);
+        map.geojsons = new LayerStore(map);
         
         // When the map is clicked, send the coordinates back to the app
         map.on('click', function(e) {
@@ -301,7 +302,7 @@ var dataframe = (function() {
           [lat2[i], lng2[i]]
         ], options);
         var thisId = layerId[i];
-        self.shapes.addLayer(rect, thisId);
+        self.shapes.add(rect, thisId);
         rect.on('click', function(e) {
           Shiny.onInputChange(self.id + '_shape_click', {
             id: thisId,
@@ -399,6 +400,19 @@ var dataframe = (function() {
 
   methods.clearPopups = function() {
     this.popups.clear();
+  };
+
+  methods.addGeoJSON = function(x, layerId) {
+    var layer = L.geoJson(JSON.parse(x));
+    this.geojsons.add(layer, layerId);
+  };
+
+  methods.removeGeoJSON = function(layerId) {
+    this.geojsons.remove(layerId);
+  };
+
+  methods.clearGeoJSON = function() {
+    this.geojsons.remove();
   };
 
   function LayerStore(map) {
