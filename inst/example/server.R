@@ -1,4 +1,4 @@
-library(leaflet)
+library(leaflet) # To install, run devtools::install_github('leaflet-shiny', 'jcheng5') #See https://groups.google.com/forum/#!topic/shiny-discuss/V7WUQA7aAiI
 library(ggplot2)
 library(maps)
 
