@@ -358,6 +358,33 @@ methods.clearMarkers = function() {
     }
   };
 
+  methods.addPolyline = function(lat, lng, layerId, options, defaultOptions) {
+    var self = this;
+    var coordPos = -1; // index into lat/lng
+    var idPos = -1; // index into layerId
+    if (options === null || typeof(options) === 'undefined' || options.length == 0) {
+      options = [null];
+    }
+    while (++coordPos < lat.length && ++idPos < layerId.length) {
+      (function() {
+        var thisId = layerId[idPos];
+        var points = [];
+        while (coordPos < lat.length && lat[coordPos] !== null) {
+          points.push([lat[coordPos], lng[coordPos]]);
+          coordPos++;
+        }
+        points.pop();
+        var opt = $.extend(true, {}, defaultOptions,
+          options[idPos % options.length]);
+        var polyline = L.polyline(points, opt);
+        self.shapes.add(polyline, thisId);
+        polyline.on('click', mouseHandler(this.id, thisId, 'shape_click'), this);
+        polyline.on('mouseover', mouseHandler(this.id, thisId, 'shape_mouseover'), this);
+        polyline.on('mouseout', mouseHandler(this.id, thisId, 'shape_mouseout'), this);
+      }).call(this);
+    }
+  };
+
   function mouseHandler(mapId, layerId, eventName) {
     return function(e) {
       var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;

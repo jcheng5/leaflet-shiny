@@ -72,6 +72,7 @@ createLeafletMap <- function(session, outputId) {
     stub(addCircle(lat, lng, radius, layerId = NULL, options=list(), eachOptions=list())),
     stub(addRectangle(lat1, lng1, lat2, lng2, layerId = NULL, options=list())),
     stub(addPolygon(lat, lng, layerId, options, defaultOptions)),
+    stub(addPolyline(lat, lng, layerId, options, defaultOptions)),
     stub(showPopup(lat, lng, content, layerId = NULL, options=list())),
     stub(removePopup(layerId)),
     stub(clearPopups())
