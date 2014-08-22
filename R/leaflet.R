@@ -64,7 +64,7 @@ createLeafletMap <- function(session, outputId) {
   
   c(
     stub(setView(lat, lng, zoom, forceReset = FALSE)),
-    stub(addMarker(lat, lng, layerId = NULL, options = list()),popup),
+    stub(addMarker(lat, lng, layerId = NULL, options = list(),popup)),
     stub(clearMarkers()),
     stub(markerPopup(id)),
     stub(removeMarkers(id)), 
