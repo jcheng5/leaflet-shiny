@@ -64,8 +64,10 @@ createLeafletMap <- function(session, outputId) {
   
   c(
     stub(setView(lat, lng, zoom, forceReset = FALSE)),
-    stub(addMarker(lat, lng, layerId = NULL, options = list())),
+    stub(addMarker(lat, lng, layerId = NULL, options = list()),popup),
     stub(clearMarkers()),
+    stub(markerPopup(id)),
+    stub(removeMarkers(id)), 
     stub(clearShapes()),
     stub(fitBounds(lat1, lng1, lat2, lng2)),
     stub(addCircle(lat, lng, radius, layerId = NULL, options=list(), eachOptions=list())),
@@ -73,7 +75,10 @@ createLeafletMap <- function(session, outputId) {
     stub(addPolygon(lat, lng, layerId, options, defaultOptions)),
     stub(showPopup(lat, lng, content, layerId = NULL, options=list())),
     stub(removePopup(layerId)),
-    stub(clearPopups())
+    stub(clearPopups()),
+    stub(addWMS(url,layer,time,scaleRange,nBands)),
+    stub(clearWMS())
+    
   )
 }
 

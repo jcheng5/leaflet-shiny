@@ -181,10 +181,30 @@ var dataframe = (function() {
         map.markers = new LayerStore(map);
         map.shapes = new LayerStore(map);
         map.popups = new LayerStore(map);
+        map.WMSLayers = new LayerStore(map);
+
         
         // When the map is clicked, send the coordinates back to the app
         map.on('click', function(e) {
           Shiny.onInputChange(id + '_click', {
+            lat: e.latlng.lat,
+            lng: e.latlng.lng,
+            '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
+          });
+        });
+        
+        // When the map is dblclicked, send the coordinates back to the app
+        map.on('dblclick', function(e) {
+          Shiny.onInputChange(id + '_dblclick', {
+            lat: e.latlng.lat,
+            lng: e.latlng.lng,
+            '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
+          });
+        });        
+        
+        // When the mouse moves over map, send the coordinates back to the app
+        map.on('mousemove', function(e) {
+          Shiny.onInputChange(id + '_mousemove', {
             lat: e.latlng.lat,
             lng: e.latlng.lng,
             '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
@@ -205,6 +225,8 @@ var dataframe = (function() {
         setTimeout(updateBounds, 1);
         
         map.on('moveend', updateBounds);
+
+        L.control.scale().addTo(map);
 
         var initialTileLayer = $el.data('initial-tile-layer');
         var initialTileLayerAttrib = $el.data('initial-tile-layer-attrib');
@@ -258,11 +280,15 @@ var dataframe = (function() {
     this.setView([lat, lng], zoom, forceReset);
   };
 
-  methods.addMarker = function(lat, lng, layerId, options) {
+  methods.addMarker = function(lat, lng, layerId, options, popup) {
     var self = this;
     var marker = L.marker([lat, lng], options);
+    
+    marker.bindPopup(popup);
+    
     this.markers.add(marker, layerId);
     marker.on('click', function(e) {
+      e.target.openPopup()
       Shiny.onInputChange(self.id + '_marker_click', {
         id: layerId,
         lat: e.target.getLatLng().lat,
@@ -272,9 +298,19 @@ var dataframe = (function() {
     });
   };
 
+  methods.markerPopup  = function(id) {
+    this.markers.get(id).openPopup();
+  };
+  
+
   methods.clearMarkers = function() {
     this.markers.clear();
   };
+
+  methods.removeMarkers = function(id) {
+    this.markers.remove(id);
+  };
+
 
   methods.clearShapes = function() {
     this.shapes.clear();
@@ -314,6 +350,33 @@ var dataframe = (function() {
     }
   };
   
+    methods.addWMS = function(url,layer,time,scaleRange,nBands) {
+    //url = 'http://thredds.met.no/thredds/wms/topaz/dataset-topaz4-arc-myoceanv2-be?'
+    //layer = 'temperature'
+    //time = "2014-08-10T00:00:00.000Z"
+    //scaleRange = '270,310'
+    //nBands=255
+    
+    var self = this;
+    
+    var wms = L.tileLayer.wms(url, {
+    layers: layer,
+    format: 'image/png',
+    transparent: true,
+    time: time,
+    COLORSCALERANGE:scaleRange,
+    NUMCOLORBANDS:nBands
+
+    });
+
+    self.WMSLayers.add(wms, 'wms');
+    
+    
+  }
+  
+  methods.clearWMS = function() {
+    this.WMSLayers.clear();
+  };
   /*
    * @param lat Array of latitude coordinates for polygons; different
    *   polygons are separated by null.
