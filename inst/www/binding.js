@@ -239,9 +239,6 @@ var dataframe = (function() {
   };
 
   methods.addMarker = function(lat, lng, layerId, options, eachOptions) {
-    if ('icon' in options) {
-      options['icon'] = L.icon(options['icon'])
-    }
     var df = dataframe.create()
       .col('lat', lat)
       .col('lng', lng)
@@ -253,6 +250,12 @@ var dataframe = (function() {
       (function() {
         var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], df.get(i));
         var thisId = df.get(i, 'layerId');
+
+		var options = df.get(i, 'options');
+		if ('icon' in options) {
+			marker.setIcon(L.icon(options['icon']))
+		}
+
         this.markers.add(marker, thisId);
         marker.on('click', mouseHandler(this.id, thisId, 'marker_click'), this);
         marker.on('mouseover', mouseHandler(this.id, thisId, 'marker_mouseover'), this);
