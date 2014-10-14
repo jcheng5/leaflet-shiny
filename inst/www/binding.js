@@ -248,14 +248,13 @@ var dataframe = (function() {
 
     for (var i = 0; i < df.nrow(); i++) {
       (function() {
-        var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], df.get(i));
-        var thisId = df.get(i, 'layerId');
-
-		var options = df.get(i, 'options');
+	  	var options = df.get(i);
 		if ('icon' in options) {
-			marker.setIcon(L.icon(options['icon']))
+			options['icon'] = L.icon(options['icon']))
 		}
-
+		
+        var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], options);
+        var thisId = df.get(i, 'layerId');
         this.markers.add(marker, thisId);
         marker.on('click', mouseHandler(this.id, thisId, 'marker_click'), this);
         marker.on('mouseover', mouseHandler(this.id, thisId, 'marker_mouseover'), this);
