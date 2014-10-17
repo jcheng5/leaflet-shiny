@@ -249,6 +249,7 @@ var dataframe = (function() {
 	  for (var key in options) {
 		optionsArray.push(options[key]);
 	  }
+	  optionsArray.reverse()
 	  
       df.col('options', optionsArray)
       .cbind(eachOptions);
