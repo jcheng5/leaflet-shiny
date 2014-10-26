@@ -428,6 +428,14 @@ var dataframe = (function() {
     this.geojson.add(gjlayer, layerId);
   };
 
+  methods.clearGeoJSON = function() {
+	this.geojson.clear();
+  };
+  
+  methods.removeGeoJSON = function(layerId) {
+	this.geojson.remove(layerId);
+  };
+  
   methods.showPopup = function(lat, lng, content, layerId, options) {
     var popup = L.popup(options)
       .setLatLng([lat, lng])
