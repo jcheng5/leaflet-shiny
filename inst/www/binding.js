@@ -248,7 +248,8 @@ var dataframe = (function() {
 
     for (var i = 0; i < df.nrow(); i++) {
       (function() {
-        var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], df.get(i));
+		var icon = L.MakiMarkers.icon({icon: "marker", color: "#e30000", size: "m"});
+        var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], df.get(i), {icon: icon});
         var thisId = df.get(i, 'layerId');
         this.markers.add(marker, thisId);
         marker.on('click', mouseHandler(this.id, thisId, 'marker_click'), this);
