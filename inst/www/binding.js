@@ -503,7 +503,7 @@ var dataframe = (function() {
         lat: lat,
         lng: lng,
 		clicklat: clicklat,
-		clicklon: clicklon,
+		clicklng: clicklng,
         '.nonce': Math.random()  // force reactivity
       }, extraInfo));
     };
