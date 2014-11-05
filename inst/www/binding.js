@@ -492,22 +492,22 @@ var dataframe = (function() {
     };
   }
 
-  // function customMouseHandler(map, layerId, eventName, extraInfo) {
-    // return function(e) {
-      // var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
-      // var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
-	  // var clicklat=map.latlng.lat;
-	  // var clicklon=map.latlng.lon;
-	  // Shiny.onInputChange(map.id + '_' + eventName, $.extend({
-        // id: layerId,
-        // lat: lat,
-        // lng: lng,
-		// clicklat: clicklat,
-		// clicklon: clicklon,
-        // '.nonce': Math.random()  // force reactivity
-      // }, extraInfo));
-    // };
-  // }  
+  function customMouseHandler(map, layerId, eventName, extraInfo) {
+    return function(e) {
+      var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
+      var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
+	  var clicklat=map.latlng.lat;
+	  var clicklon=map.latlng.lng;
+	  Shiny.onInputChange(map.id + '_' + eventName, $.extend({
+        id: layerId,
+        lat: lat,
+        lng: lng,
+		clicklat: clicklat,
+		clicklon: clicklon,
+        '.nonce': Math.random()  // force reactivity
+      }, extraInfo));
+    };
+  }  
   
   methods.addCircle = function(lat, lng, radius, layerId, options, eachOptions) {
     var df = dataframe.create()
@@ -551,8 +551,8 @@ var dataframe = (function() {
           featureId: feature.id,
           properties: feature.properties
         };
-        // layer.on("click", customMouseHandler(self, layerId, "geojson_click", extraInfo), this);
-        layer.on("click", mouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
+        layer.on("click", customMouseHandler(self, layerId, "geojson_click", extraInfo), this);
+        // layer.on("click", mouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
         layer.on("mouseover", mouseHandler(self.id, layerId, "geojson_mouseover", extraInfo), this);
         layer.on("mouseout", mouseHandler(self.id, layerId, "geojson_mouseout", extraInfo), this);
       }
