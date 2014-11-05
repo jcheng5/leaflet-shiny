@@ -552,7 +552,7 @@ var dataframe = (function() {
           properties: feature.properties
         };
         // layer.on("click", customMouseHandler(self, layerId, "geojson_click", extraInfo), this);
-        layer.on("click", MouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
+        layer.on("click", mouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
         layer.on("mouseover", mouseHandler(self.id, layerId, "geojson_mouseover", extraInfo), this);
         layer.on("mouseout", mouseHandler(self.id, layerId, "geojson_mouseout", extraInfo), this);
       }
