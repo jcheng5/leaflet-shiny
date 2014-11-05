@@ -492,13 +492,13 @@ var dataframe = (function() {
     };
   }
 
-  function customMouseHandler(map, layerId, eventName, extraInfo) {
+  function customMouseHandler(mapId, layerId, eventName, extraInfo) {
     return function(e) {
       var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
       var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
-	  var clicklat=map.latlng.lat;
-	  var clicklng=map.latlng.lng;
-	  Shiny.onInputChange(map.id + '_' + eventName, $.extend({
+	  var clicklat=e.latlng.lat;
+	  var clicklng=e.latlng.lng;
+	  Shiny.onInputChange(mapId + '_' + eventName, $.extend({
         id: layerId,
         lat: lat,
         lng: lng,
@@ -551,7 +551,7 @@ var dataframe = (function() {
           featureId: feature.id,
           properties: feature.properties
         };
-        layer.on("click", customMouseHandler(self, layerId, "geojson_click", extraInfo), this);
+        layer.on("click", customMouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
         // layer.on("click", mouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
         layer.on("mouseover", mouseHandler(self.id, layerId, "geojson_mouseover", extraInfo), this);
         layer.on("mouseout", mouseHandler(self.id, layerId, "geojson_mouseout", extraInfo), this);
