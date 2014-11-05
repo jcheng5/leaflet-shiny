@@ -497,7 +497,7 @@ var dataframe = (function() {
       var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
       var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
 	  var clicklat=map.latlng.lat;
-	  var clicklon=map.latlng.lng;
+	  var clicklng=map.latlng.lng;
 	  Shiny.onInputChange(map.id + '_' + eventName, $.extend({
         id: layerId,
         lat: lat,
