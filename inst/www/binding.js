@@ -260,21 +260,20 @@ var dataframe = (function() {
     this.setView([lat, lng], zoom, forceReset);
   };
 
-  methods.addMarker = function(lat, lng, layerId, options, eachOptions,popup) {
+
+  methods.addMarker = function(lat, lng, layerId, options, eachOptions) {
     var df = dataframe.create()
       .col('lat', lat)
       .col('lng', lng)
       .col('layerId', layerId)
       .cbind(options)
       .cbind(eachOptions);
-      
 
     for (var i = 0; i < df.nrow(); i++) {
       (function() {
         var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], df.get(i));
         var thisId = df.get(i, 'layerId');
         this.markers.add(marker, thisId);
-        marker.bindPopup(popup);
         marker.on('click', mouseHandler(this.id, thisId, 'marker_click'), this);
         marker.on('mouseover', mouseHandler(this.id, thisId, 'marker_mouseover'), this);
         marker.on('mouseout', mouseHandler(this.id, thisId, 'marker_mouseout'), this);
@@ -303,10 +302,8 @@ var dataframe = (function() {
     }
   };
 
-
   methods.removeMarker = function(layerId) {
     this.markers.remove(layerId);
-
   };
 
   methods.markerPopup  = function(id) {
@@ -427,7 +424,6 @@ var dataframe = (function() {
     return function(e) {
       var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
       var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
-      //e.target.openPopup()
       Shiny.onInputChange(mapId + '_' + eventName, $.extend({
         id: layerId,
         lat: lat,
