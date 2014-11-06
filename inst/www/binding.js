@@ -365,7 +365,7 @@ var dataframe = (function() {
     //scaleRange = '270,310'
     //nBands=255
     
-    //var self = this;
+    var self = this;
     
     var wms = L.tileLayer.wms(url, {
     layers: layer,

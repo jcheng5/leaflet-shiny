@@ -9,27 +9,24 @@ library(shiny)
 
 shinyUI(fluidPage(
 
-  # Application title
   titlePanel("Leaflet WMS example"),
 
-  # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30)
+      h5('Global Ocean Wind Speed'),
+      h6('Source URL: http://tds0.ifremer.fr/thredds/wms/GLO-BLENDED_WIND_L4-V3-OBS_FULL_TIME_SERIE?'),
+      dateInput(inputId = 'date',
+                label = 'Date',min = '2013-01-01',
+                max = Sys.Date()-3)
     ),
-
-    # Show a plot of the generated distribution
+    
     mainPanel(
       leafletMap(outputId = 'map',
-                 width=600,
-                 height=600,
+                 width='100%',
+                 height=500,
                  options=list(
-                   center = c(55.362, -1.50),
-                   zoom = 5))
+                   center = c(10, 0),
+                   zoom = 1))
     )
   )
 ))
