@@ -62,24 +62,28 @@ createLeafletMap <- function(session, outputId) {
     structure(list(func), names = name)
   }
   
-  c(
+  structure(c(
     stub(setView(lat, lng, zoom, forceReset = FALSE)),
-    stub(addMarker(lat, lng, layerId = NULL, options = list(),popup)),
+    stub(addMarker(lat, lng, layerId=NULL, options=list(), eachOptions=list(),popup)),
+    stub(addCircleMarker(lat, lng, radius, layerId = NULL, options = list(), eachOptions=list())),
     stub(clearMarkers()),
     stub(markerPopup(id)),
-    stub(removeMarkers(id)), 
     stub(clearShapes()),
     stub(fitBounds(lat1, lng1, lat2, lng2)),
     stub(addCircle(lat, lng, radius, layerId = NULL, options=list(), eachOptions=list())),
-    stub(addRectangle(lat1, lng1, lat2, lng2, layerId = NULL, options=list())),
+    stub(addRectangle(lat1, lng1, lat2, lng2, layerId = NULL, options=list(), eachOptions=list())),
     stub(addPolygon(lat, lng, layerId, options, defaultOptions)),
+    stub(addGeoJSON(data, layerId)),
     stub(showPopup(lat, lng, content, layerId = NULL, options=list())),
     stub(removePopup(layerId)),
     stub(clearPopups()),
     stub(addWMS(url,layer,time,scaleRange,nBands)),
     stub(clearWMS())
-    
-  )
+    stub(removeShape(layerId)),
+    stub(clearShapes()),
+    stub(removeMarker(layerId)),
+    stub(clearMarkers())
+  ), class = "leaflet_map")
 }
 
 #' @export
