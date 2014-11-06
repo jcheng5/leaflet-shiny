@@ -78,7 +78,7 @@ createLeafletMap <- function(session, outputId) {
     stub(removePopup(layerId)),
     stub(clearPopups()),
     stub(addWMS(url,layer,time,scaleRange,nBands)),
-    stub(clearWMS())
+    stub(clearWMS()),
     stub(removeShape(layerId)),
     stub(clearShapes()),
     stub(removeMarker(layerId)),
