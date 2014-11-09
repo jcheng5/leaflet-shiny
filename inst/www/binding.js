@@ -324,6 +324,7 @@ var dataframe = (function() {
 		
 		if (initialTileLayer=="ESRI") {
 			// load esri world imagery with labels
+			// see http://esri.github.io/esri-leaflet/api-reference/layers/basemap-layer.html
 			 L.esri.basemapLayer('Imagery').addTo(map);
 			 L.esri.basemapLayer('ImageryLabels').addTo(map);
 		} else {
