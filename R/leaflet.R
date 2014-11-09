@@ -103,7 +103,7 @@ leafletMap <- function(
     singleton(
       tags$head(
         tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet.css"),
-        tags$script(src="leaflet/esri-leaflet.js")
+        tags$script(src="leaflet/esri-leaflet.js"),
         tags$script(src="leaflet/leaflet.js"),
         tags$script(src="leaflet/binding.js")
       )
