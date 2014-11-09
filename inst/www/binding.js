@@ -321,15 +321,19 @@ var dataframe = (function() {
 
         var initialTileLayer = $el.data('initial-tile-layer');
         var initialTileLayerAttrib = $el.data('initial-tile-layer-attrib');
-        if (initialTileLayer) {
-          L.tileLayer(initialTileLayer, {
-            attribution: initialTileLayerAttrib
-          }).addTo(map);
-        }
 		
-		var labelURL = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'
-		L.tileLayer(labelURL).addTo(map)
-		
+		if (initialTileLayer=="ESRI") {
+			// load esri world imagery with labels
+			 L.esri.basemapLayer('Imagery').addTo(map);
+			 L.esri.basemapLayer('ImageryLabels').addTo(map);
+		} else {
+			// use tile layers based on input url
+			if (initialTileLayer) {
+			  L.tileLayer(initialTileLayer, {
+				attribution: initialTileLayerAttrib
+			  }).addTo(map);
+			}
+		}
       }
     }
   });
