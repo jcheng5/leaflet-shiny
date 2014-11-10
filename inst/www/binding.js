@@ -318,17 +318,19 @@ var dataframe = (function() {
         setTimeout(updateBounds, 1);
         map.on('moveend', updateBounds);
 
-		// add scale bar
-		L.control.scale().addTo(map);
-		
-		// add base map manager
-		var geoOpts = {"providername":"L.GeoManager.GoogleIdentify", "title":"Google Identify"}
-		
-		var geoManager = new L.GeoManager(geoOpts);
-		geoManager.addTo(map);
-		
-		// set google as base map
-		geoManager.setOptions({baselayer: 'google'});
+		if (initialTileLayer=="ESRI") {
+			// load esri world imagery with labels
+			// see http://esri.github.io/esri-leaflet/api-reference/layers/basemap-layer.html
+			 L.esri.basemapLayer('Imagery').addTo(map);
+			 L.esri.basemapLayer('ImageryLabels').addTo(map);
+		} else {
+			// use tile layers based on input url
+			if (initialTileLayer) {
+			  L.tileLayer(initialTileLayer, {
+				attribution: initialTileLayerAttrib
+			  }).addTo(map);
+			}
+		}
 		
       }
     }
