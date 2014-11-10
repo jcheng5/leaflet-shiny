@@ -322,7 +322,9 @@ var dataframe = (function() {
 		L.control.scale().addTo(map);
 		
 		// add base map manager
-		var geoManager = new L.GeoManager();
+		var geoOpts = {"providername":"L.GeoManager.GoogleIdentify", "title":"Google Identify"}
+		
+		var geoManager = new L.GeoManager(geoOpts);
 		geoManager.addTo(map);
 		
 		// set google as base map
