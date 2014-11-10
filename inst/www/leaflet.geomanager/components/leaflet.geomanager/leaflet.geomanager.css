@@ -1,0 +1,237 @@
+
+.geomanager-layers {
+  width: 228px;
+  margin: 30px 0 0;
+  padding: 0;
+  background-color: #fff;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+     -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+          box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+.geomanager-layers > li > .round {
+  display: block;
+  width: 190px \9;
+  margin: 0 0 -1px;
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+}
+.geomanager-layers > li:first-child > .round {
+  -webkit-border-radius: 6px 6px 0 0;
+     -moz-border-radius: 6px 6px 0 0;
+          border-radius: 6px 6px 0 0;
+}
+.geomanager-layers > li:last-child > .round {
+  -webkit-border-radius: 0 0 6px 6px;
+     -moz-border-radius: 0 0 6px 6px;
+          border-radius: 0 0 6px 6px;
+}
+.geomanager-layers > .active > .round {
+  position: relative;
+  z-index: 2;
+  padding: 9px 15px;
+  border: 0;
+  text-shadow: 0 1px 0 rgba(0,0,0,.15);
+  -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+     -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+          box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+}
+/* Chevrons */
+.geomanager-layers .icon-chevron-right {
+  float: right;
+  margin-top: 2px;
+  margin-right: -6px;
+  opacity: .25;
+}
+.geomanager-layers > li > .round:hover {
+  background-color: #f5f5f5;
+}
+.geomanager-layers .round:hover .icon-chevron-right {
+  opacity: .5;
+}
+.geomanager-layers .active .icon-chevron-right,
+.geomanager-layers .active .round:hover .icon-chevron-right {
+  background-image: url(../img/glyphicons-halflings-white.png);
+  opacity: 1;
+}
+.geomanager-layers.affix {
+  top: 0px;
+}
+.geomanager-layers.affix-bottom {
+  position: absolute;
+  top: auto;
+  bottom: 270px;
+}
+
+
+.geomanager-layers .icon-remove-sign-right {
+    float: right;
+    margin-right: -6px;
+    margin-top: 2px;
+    opacity: 0.25;
+    cursor:pointer;
+}
+
+.geomanager-layers .icon-edit-sign-right {
+    float: right;
+    margin-right: 2px;
+    margin-top: 2px;
+    opacity: 0.25;
+    cursor:pointer;
+}
+
+
+
+#s2id_baselayer .select2-choice, #s2id_overlay .select2-choice {
+  min-height: 80px;
+  max-height: 80px;
+}
+
+.layer-thumbnail {
+width:160px;
+height: 60px;
+}
+
+.layer-thumb-none {
+	background-image:url(img/1x1.png);
+}
+
+.layer-thumb-osm {
+	background-image:url(img/osm.png);
+}
+
+.layer-thumb-osmbw {
+	background-image:url(img/osmbw.png);
+}
+
+.layer-thumb-opencyclemap {
+	background-image:url(img/opencyclemap.png);
+}
+
+.layer-thumb-opencyclemap-transport {
+	background-image:url(img/opencyclemap-transport.png);
+}
+
+.layer-thumb-opencyclemap-landscape {
+	background-image:url(img/opencyclemap-landscape.png);
+}
+
+.layer-thumb-mapquest {
+	background-image:url(img/mapquest.png);
+}
+
+.layer-thumb-mapquest-aerial {
+	background-image:url(img/mapquest-aerial.png);
+}
+
+.layer-thumb-stamen-toner {
+	background-image:url(img/stamen-toner.png);
+}
+
+.layer-thumb-stamen-terrain {
+	background-image:url(img/stamen-terrain.png);
+}
+
+.layer-thumb-stamen-watercolor {
+	background-image:url(img/stamen-watercolor.png);
+}
+
+.layer-thumb-esri {
+	background-image:url(img/esri.png);
+}
+
+.layer-thumb-esri-topo {
+	background-image:url(img/esri-topo.png);
+}
+
+.layer-thumb-esri-imagery {
+	background-image:url(img/esri-imagery.png);
+}
+
+.layer-thumb-google {
+	background-image:url(img/google.png);
+}
+
+.layer-thumb-google-satellite {
+	background-image:url(img/google-satellite.png);
+}
+
+.layer-thumb-google-satellite {
+	background-image:url(img/google-satellite.png);
+}
+
+.layer-thumb-google-hybrid {
+	background-image:url(img/google-hybrid.png);
+}
+
+.layer-thumb-google-terrain {
+	background-image:url(img/google-terrain.png);
+}
+
+.layer-thumb-bing {
+	background-image:url(img/bing.png);
+}
+
+.layer-thumb-bing-aerial {
+	background-image:url(img/bing-aerial.png);
+}
+
+.layer-thumb-bing-hybrid {
+	background-image:url(img/bing-hybrid.png);
+}
+
+.layer-thumb-yandex {
+	background-image:url(img/yandex.png);
+}
+
+.layer-thumb-yandex-satellite {
+	background-image:url(img/yandex-satellite.png);
+}
+
+.layer-thumb-yandex-hybrid {
+	background-image:url(img/yandex-hybrid.png);
+}
+
+.layer-thumb-yandex-publicmap {
+	background-image:url(img/yandex-publicmap.png);
+}
+
+.layer-thumb-yandex-publicmap-hybrid {
+	background-image:url(img/yandex-publicmap-hybrid.png);
+}
+
+.layer-thumb-wikimapia {
+	background-image:url(img/wikimapia.png);
+}
+
+.layer-thumb-rucadastre {
+	background-image:url(img/rucadastre.png);
+}
+
+.layer-thumb-wikimapia-hybrid {
+	background-image:url(img/wikimapia-hybrid.png);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
