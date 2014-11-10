@@ -327,23 +327,11 @@ var dataframe = (function() {
 			  , 'wikimapia': ''
 			  , 'nokia': ''
 			}
-		  });
-		  geoManager.addTo(map);		
+		});
+		geoManager.addTo(map);		
 		
-		// Change baselayer
-		$('#google').on('click', function (e) {
-			geoManager.setOptions({baselayer: 'google'});
-		})
-		
-		// Change overlay
-		$('#overlay').on('click', function (e) {
-			geoManager.setOptions({overlay: 'wikimapia-hybrid'});
-		})
-		
-		// Change interactive layer
-		$('#interactivelayer').on('click', function (e) {
-			geoManager.setOptions({interactivelayer: 'wikimapia-api'});
-		})
+		// set google as base map
+		geoManager.setOptions({baselayer: 'google'});
 		
       }
     }
