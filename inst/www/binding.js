@@ -318,17 +318,15 @@ var dataframe = (function() {
         setTimeout(updateBounds, 1);
         map.on('moveend', updateBounds);
 
-		// add base map manager
+		// add scale bar
 		L.control.scale().addTo(map);
-		var geoManager = new L.GeoManager({
-			apikeys: {
-			  'bing': ''
-			  , 'mapquest': ''
-			  , 'wikimapia': ''
-			  , 'nokia': ''
-			}
-		});
-		geoManager.addTo(map);		
+		
+		// add base map manager
+		var geoOptions = {
+			tag: 'geoman0'
+		}
+		var geoManager = new L.GeoManager(geoOptions);
+		geoManager.addTo(map);
 		
 		// set google as base map
 		geoManager.setOptions({baselayer: 'google'});
@@ -559,7 +557,6 @@ var dataframe = (function() {
           properties: feature.properties
         };
         layer.on("click", customMouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
-        // layer.on("click", mouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
         layer.on("mouseover", mouseHandler(self.id, layerId, "geojson_mouseover", extraInfo), this);
         layer.on("mouseout", mouseHandler(self.id, layerId, "geojson_mouseout", extraInfo), this);
       }
