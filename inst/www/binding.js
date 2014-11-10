@@ -322,17 +322,7 @@ var dataframe = (function() {
 		L.control.scale().addTo(map);
 		
 		// add base map manager
-		L.GeoManager.prototype.registerAPIKeys([
-			{name: 'bing', value: 'Anqm0F_JjIZvT0P3abS6KONpaBaKuTnITRrnYuiJCE0WOhH6ZbE4DzeT6brvKVR5'}
-			, {name: 'mapquest', value: 'Kmjtd%7Cluua2qu7n9%2C7a%3Do5-lzbgq'}
-			, {name: 'wikimapia', value: '60175C48-4B0C86C-A2D4D106-A5F37CAF-5A760C96-45526DF2-6D90C63B-511E68EE'}
-			, {name: 'nokia', value: 'HGHGJHgdbndbmbsdf7675wefdvvdsnb'}
-			, {name: 'cloudmade', value: 'cludmadeapikey'}
-		]);
-		var geoOptions = {
-			tag: 'geoman0'
-		}
-		var geoManager = new L.GeoManager(geoOptions);
+		var geoManager = new L.GeoManager();
 		geoManager.addTo(map);
 		
 		// set google as base map
