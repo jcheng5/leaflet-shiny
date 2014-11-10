@@ -345,6 +345,10 @@ var dataframe = (function() {
         setTimeout(updateBounds, 1);
         map.on('moveend', updateBounds);
 
+		
+		var initialTileLayer = $el.data('initial-tile-layer');
+        var initialTileLayerAttrib = $el.data('initial-tile-layer-attrib');		
+		
 		if (initialTileLayer=="ESRI") {
 			// load esri world imagery with labels
 			// see http://esri.github.io/esri-leaflet/api-reference/layers/basemap-layer.html
