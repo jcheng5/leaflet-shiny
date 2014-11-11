@@ -554,7 +554,7 @@ var dataframe = (function() {
           Shiny.onInputChange(id + '_click', {
             lat: e.latlng.lat,
             lng: e.latlng.lng,
-            '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
+            '.nonce': Math.random() * 0.001 // Force reactivity if lat/lng hasn't changed
           });
         });
         
@@ -759,7 +759,7 @@ var dataframe = (function() {
         id: layerId,
         lat: lat,
         lng: lng,
-        '.nonce': Math.random()  // force reactivity
+        '.nonce': Math.random() * 0.001 // force reactivity
       }, extraInfo));
     };
   }
@@ -776,7 +776,7 @@ var dataframe = (function() {
         lng: lng,
 		clicklat: clicklat,
 		clicklng: clicklng,
-        '.nonce': Math.random()  // force reactivity
+        '.nonce': Math.random() * 0.001  // force reactivity
       }, extraInfo));
     };
   }  
