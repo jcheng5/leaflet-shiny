@@ -93,6 +93,7 @@ leafletMap <- function(
   options=NULL) {
   
   addResourcePath("leaflet", system.file("www", package="leaflet"))
+  addResourcePath("leaflet", system.file("www/leaflet-plugins-1.2.0", package="leaflet"))
 
   if (is.numeric(width))
     width <- sprintf("%dpx", width)
