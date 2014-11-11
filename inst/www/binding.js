@@ -599,7 +599,7 @@ var dataframe = (function() {
 				  }).addTo(map);
 			}
 		}
-    }
+    }}
   });
   Shiny.outputBindings.register(leafletOutputBinding, "leaflet-output-binding");
   
