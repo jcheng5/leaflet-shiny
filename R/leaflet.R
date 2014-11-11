@@ -93,7 +93,6 @@ leafletMap <- function(
   options=NULL) {
   
   addResourcePath("leaflet", system.file("www", package="leaflet"))
-  addResourcePath(file.path("leaflet","leaflet-plugins","layer","tile","Google.js"), system.file("www", package="leaflet"))
 
   if (is.numeric(width))
     width <- sprintf("%dpx", width)
@@ -104,8 +103,8 @@ leafletMap <- function(
     singleton(
       tags$head(
         tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet.css"),
-        tags$script(src="leaflet/leaflet-plugins.js"),
-        tags$script(src="leaflet/leaflet-plugins.js"),
+        tags$script(src="leaflet/leaflet-plugins/layer/tile/Google.js"),
+        tags$script(src="leaflet/leaflet-plugins/control/Layers.Load.js"),
         tags$script(src="leaflet/leaflet.js"),
         tags$script(src="leaflet/binding.js")
       )
