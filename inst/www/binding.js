@@ -346,13 +346,13 @@ var dataframe = (function() {
         map.on('moveend', updateBounds);
 
 		// generate map layers
-		var google_hybrid = new L.Google('HYBRID')
+		L.Google('HYBRID').addTo(map);
 		// var google_sat =  new L.Google('SATELLITE')
 		// var google_road = new L.Google('ROADMAP')
 		// var google_terrain = new L.Google('TERRAIN');
 		
 		// add map layer
-		google_hybrid.addTo(map);
+		// google_hybrid.addTo(map);
 		
 		// add map switcher
 		// var map_select = new L.Control.Layers( {'Hybrid':google_hybrid, 'Satellite':google_sat, 'Roadmap':google_road, "Terrain":google_terrain}, {})		
