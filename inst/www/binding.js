@@ -582,7 +582,7 @@ var dataframe = (function() {
 		var google_terrain = new L.Google('TERRAIN');
 		
 		// add map layer
-		google_hybrid.addTo(map);
+		map.addLayer(google_hybrid);
 		
 		// add map switcher
 		var map_select = new L.Control.Layers( {'Hybrid':google_hybrid, 'Satellite':google_sat, 'Roadmap':google_road, "Terrain":google_terrain}, {});
