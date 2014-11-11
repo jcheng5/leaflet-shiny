@@ -545,19 +545,31 @@ var dataframe = (function() {
         setTimeout(updateBounds, 1);
         map.on('moveend', updateBounds);
 
-		// generate map layers
-		var google_hybrid = new L.Google('HYBRID');
-		var google_sat =  new L.Google('SATELLITE');
-		var google_road = new L.Google('ROADMAP');
-		var google_terrain = new L.Google('TERRAIN');
-		
-		// add map layer
-		map.addLayer(google_hybrid);
-		
-		// add map switcher
-		var map_select = new L.Control.Layers( {'Hybrid':google_hybrid, 'Satellite':google_sat, 'Roadmap':google_road, "Terrain":google_terrain}, {});
-		map.addControl(map_select);
-		
+		if (initialTileLayer) {
+			if (initialTileLayer=="GOOGLE") {
+				// generate map layers
+				var google_hybrid = new L.Google('HYBRID');
+				var google_sat =  new L.Google('SATELLITE');
+				var google_road = new L.Google('ROADMAP');
+				var google_terrain = new L.Google('TERRAIN');
+				// add map layer
+				map.addLayer(google_hybrid);			
+				// add map switcher
+				var map_select = new L.Control.Layers( {'Hybrid':google_hybrid, 'Satellite':google_sat, 'Roadmap':google_road, "Terrain":google_terrain}, {});
+				map.addControl(map_select);
+				
+			} else if (initialTileLayer=="ESRI") {
+				// load esri world imagery with labels
+				// see http://esri.github.io/esri-leaflet/api-reference/layers/basemap-layer.html
+				 L.esri.basemapLayer('Imagery').addTo(map);
+				 L.esri.basemapLayer('ImageryLabels').addTo(map);
+			} else {
+				// use tile layers based on input url
+				  L.tileLayer(initialTileLayer, {
+					attribution: initialTileLayerAttrib
+				  }).addTo(map);
+			}
+		}
       }
     }
   });
