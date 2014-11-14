@@ -586,7 +586,8 @@ var dataframe = (function() {
 		map.on('draw:created', function (e) {
 			// init
 			var type = e.layerType;
-			var shape = e.layer.toGeoJSON();
+			var layer = e.layer
+			var shape = layer.toGeoJSON();
 			var shape_to_str = JSON.stringify(shape);
 			// send geojson data to shiny
 			Shiny.onInputChange(id + '_create_' + type, $.extend({
