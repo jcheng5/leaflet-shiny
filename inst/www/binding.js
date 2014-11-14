@@ -589,7 +589,7 @@ var dataframe = (function() {
 			var shape = e.layer.toGeoJSON();
 			var shape_to_str = JSON.stringify(shape);
 			// send geojson data to shiny
-			Shiny.onInputChange(mapId + '_create_' + type, $.extend({
+			Shiny.onInputChange(id + '_create_' + type, $.extend({
 				geojson: shape_to_str,
 				'.nonce': Math.random() * 0.001  // force reactivity
 			}));
@@ -610,7 +610,7 @@ var dataframe = (function() {
 				geojson.geojson.push(JSON.stringify(temp));
 			});
 			// send geojson data to shiny
-			Shiny.onInputChange(mapId + '_edit', $.extend({
+			Shiny.onInputChange(id + '_edit', $.extend({
 				geojson: geojson,
 				'.nonce': Math.random() * 0.001  // force reactivity
 			}));
