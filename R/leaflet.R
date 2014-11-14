@@ -104,6 +104,9 @@ leafletMap <- function(
       tags$head(
         tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet.css"),
         tags$script(src="leaflet/leaflet.js"),
+		
+		tags$script(src="https://maps.google.com/maps/api/js?v=3&sensor=false"),
+		
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/Leaflet.draw.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/Edit.Poly.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/Edit.SimpleShape.js"),
