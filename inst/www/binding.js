@@ -593,6 +593,7 @@ var dataframe = (function() {
 				'.nonce': Math.random() // force reactivity
 			}));
 			drawnItems.addLayer(layer);
+			console.log('A feature was created!');
 		});
 
 		// send geojson data to shiny for editable layer
