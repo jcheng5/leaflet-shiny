@@ -1,5 +1,10 @@
-/* global google: true */
+/* load scripts */
 
+
+
+
+
+/* global google: true */
 L.Google = L.Class.extend({
 	includes: L.Mixin.Events,
 
@@ -570,6 +575,52 @@ var dataframe = (function() {
 				  }).addTo(map);
 			}
 		}
+
+		// add feature group to store editable items
+		var drawnItems = new L.FeatureGroup();
+		map.addLayer(drawnItems);
+		
+		// initialise draw control
+		var drawControl = new L.Control.Draw({
+			edit: {
+					featureGroup: drawnItems
+				}
+			});
+		map.addControl(drawControl);
+		
+		// send geojson data to shiny for new layer
+		map.on('draw:created', function (e) {
+			// init
+			var type = e.layerType;
+			var shape = e.layer.toGeoJSON();
+			var shape_to_str = JSON.stringify(shape);
+			// send geojson data to shiny
+			Shiny.onInputChange(mapId + '_create_' + type, $.extend({
+				geojson: shape_to_str,
+				'.nonce': Math.random() * 0.001  // force reactivity
+			}));
+			drawnItems.addLayer(layer);
+		});
+
+		// send geojson data to shiny for editable layer
+		map.on('draw:edited', function (e) {
+			// init
+			var layers = e.layers;
+			var geojson = {
+				geojson: [],
+				'.nonce': Math.random() * 0.001  // force reactivity
+			};
+			var temp;
+			layers.eachLayer(function(layer) {
+				temp = layer.toGeoJSON();
+				geojson.geojson.push(JSON.stringify(temp));
+			)};
+			// send geojson data to shiny
+			Shiny.onInputChange(mapId + '_edit', $.extend({
+				geojson: geojson,
+				'.nonce': Math.random() * 0.001  // force reactivity
+			}));
+		});
     }}
   });
   Shiny.outputBindings.register(leafletOutputBinding, "leaflet-output-binding");
@@ -722,31 +773,31 @@ var dataframe = (function() {
     }
   };
 
+  // function mouseHandler(mapId, layerId, eventName, extraInfo) {
+    // return function(e) {
+      // var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
+      // var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
+	  // Shiny.onInputChange(mapId + '_' + eventName, $.extend({
+        // id: layerId,
+        // lat: lat,
+        // lng: lng,
+        // '.nonce': Math.random() * 0.001 // force reactivity
+      // }, extraInfo));
+    // };
+  // }
+
   function mouseHandler(mapId, layerId, eventName, extraInfo) {
     return function(e) {
       var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
       var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
+	  var map_lat=e.latlng.lat;
+	  var map_lng=e.latlng.lng;
 	  Shiny.onInputChange(mapId + '_' + eventName, $.extend({
         id: layerId,
         lat: lat,
         lng: lng,
-        '.nonce': Math.random() * 0.001 // force reactivity
-      }, extraInfo));
-    };
-  }
-
-  function customMouseHandler(mapId, layerId, eventName, extraInfo) {
-    return function(e) {
-      var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
-      var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
-	  var clicklat=e.latlng.lat;
-	  var clicklng=e.latlng.lng;
-	  Shiny.onInputChange(mapId + '_' + eventName, $.extend({
-        id: layerId,
-        lat: lat,
-        lng: lng,
-		clicklat: clicklat,
-		clicklng: clicklng,
+		map_lat: map_lat,
+		map_lng: map_lng,
         '.nonce': Math.random() * 0.001  // force reactivity
       }, extraInfo));
     };
@@ -794,7 +845,7 @@ var dataframe = (function() {
           featureId: feature.id,
           properties: feature.properties
         };
-        layer.on("click", customMouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
+        layer.on("click", mouseHandler(self.id, layerId, "geojson_click", extraInfo), this);
         layer.on("mouseover", mouseHandler(self.id, layerId, "geojson_mouseover", extraInfo), this);
         layer.on("mouseout", mouseHandler(self.id, layerId, "geojson_mouseout", extraInfo), this);
       }
