@@ -488,6 +488,7 @@ var dataframe = (function() {
 
 (function() {
   var maps = {};
+  var featureIndex = 0;
 
   // We use a Shiny output binding merely to detect when a leaflet map is
   // created and needs to be initialized. We are not expecting any real data
@@ -586,14 +587,16 @@ var dataframe = (function() {
 		map.on('draw:created', function(e) {
 			// init
 			var layer = e.layer
-			var shape = layer.toGeoJSON();
+			layer.properties.id=featureIndex;
+			featureIndex++;
+			
 			// send geojson data to shiny
+			var shape = layer.toGeoJSON();
 			Shiny.onInputChange(id+'_create', {
 				geojson: JSON.stringify(shape),
 				'.nonce': Math.random() // force reactivity
 			});
 			drawnItems.addLayer(layer);
-			console.log('A feature was created!');
 		});
 
 		// send geojson data to shiny for editable layer
