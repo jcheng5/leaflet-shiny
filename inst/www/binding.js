@@ -585,12 +585,11 @@ var dataframe = (function() {
 		// send geojson data to shiny for new layer
 		map.on('draw:created', function (e) {
 			// init
-			var type = e.layerType;
 			var layer = e.layer
 			var shape = layer.toGeoJSON();
 			var shape_to_str = JSON.stringify(shape);
 			// send geojson data to shiny
-			Shiny.onInputChange(id + '_create_' + type, $.extend({
+			Shiny.onInputChange(id + '_create', $.extend({
 				geojson: shape_to_str,
 				'.nonce': Math.random() * 0.001  // force reactivity
 			}));
@@ -601,14 +600,11 @@ var dataframe = (function() {
 		map.on('draw:edited', function (e) {
 			// init
 			var layers = e.layers;
-			var geojson = {
-				geojson: [],
-				'.nonce': Math.random() * 0.001  // force reactivity
-			};
 			var temp;
+			geojson=[];
 			layers.eachLayer(function(layer) {
 				temp = layer.toGeoJSON();
-				geojson.geojson.push(JSON.stringify(temp));
+				geojson.push(JSON.stringify(temp))
 			});
 			// send geojson data to shiny
 			Shiny.onInputChange(id + '_edit', $.extend({
