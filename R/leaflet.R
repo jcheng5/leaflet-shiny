@@ -103,7 +103,8 @@ leafletMap <- function(
     singleton(
       tags$head(
         tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet.css"),
-		tags$link(rel="stylesheet", type="text/css", href="leaflet/Leaflet.draw-0.2.3/dist/leaflet.draw.css" />
+		tags$link(rel="stylesheet", type="text/css", href="leaflet/Leaflet.draw-0.2.3/dist/leaflet.draw.css"),
+		
         tags$script(src="leaflet/leaflet.js"),
 		
 		tags$script(src="https://maps.google.com/maps/api/js?v=3&sensor=false"),
