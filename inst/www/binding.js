@@ -487,8 +487,8 @@ var dataframe = (function() {
 })();
 
 (function() {
-  var maps = {};
-
+	var maps = {};
+	var featureIndex = 0;
   // We use a Shiny output binding merely to detect when a leaflet map is
   // created and needs to be initialized. We are not expecting any real data
   // to be passed to renderValue.
@@ -506,7 +506,6 @@ var dataframe = (function() {
         // structures, and hook up event handlers.
 
         var id = this.getId(el);
-		var featureIndex = 0;
         var leafletOptions = JSON.parse(
           $el.children('script.leaflet-options').text()
         );
@@ -587,6 +586,7 @@ var dataframe = (function() {
 		map.on('draw:created', function(e) {
 			// init
 			var layer = e.layer
+			console.log('featureIndex '+featureIndex);
 			layer.properties.id=featureIndex;
 			featureIndex++;
 			
