@@ -577,9 +577,9 @@ var dataframe = (function() {
 		// initialise draw control
 		var drawControl = new L.Control.Draw({
 			edit: {
-					featureGroup: drawnItems
-				}
-			});
+				featureGroup: drawnItems
+			}
+		});
 		map.addControl(drawControl);
 		
 		// send geojson data to shiny for new layer
@@ -587,11 +587,10 @@ var dataframe = (function() {
 			// init
 			var layer = e.layer
 			var shape = layer.toGeoJSON();
-			var shape_to_str = JSON.stringify(shape);
 			// send geojson data to shiny
-			Shiny.onInputChange(id + '_create', $.extend({
-				geojson: shape_to_str,
-				'.nonce': Math.random() * 0.001  // force reactivity
+			Shiny.onInputChange(id+'_create', $.extend({
+				geojson: JSON.stringify(shape),
+				'.nonce': Math.random() // force reactivity
 			}));
 			drawnItems.addLayer(layer);
 		});
@@ -607,9 +606,9 @@ var dataframe = (function() {
 				geojson.push(JSON.stringify(temp))
 			});
 			// send geojson data to shiny
-			Shiny.onInputChange(id + '_edit', $.extend({
+			Shiny.onInputChange(id+'_edit', $.extend({
 				geojson: geojson,
-				'.nonce': Math.random() * 0.001  // force reactivity
+				'.nonce': Math.random()  // force reactivity
 			}));
 		});
     }}
