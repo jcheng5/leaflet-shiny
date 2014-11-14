@@ -524,7 +524,7 @@ var dataframe = (function() {
           Shiny.onInputChange(id + '_click', {
             lat: e.latlng.lat,
             lng: e.latlng.lng,
-            '.nonce': Math.random() * 0.001 // Force reactivity if lat/lng hasn't changed
+            '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
           });
         });
         
@@ -583,15 +583,15 @@ var dataframe = (function() {
 		map.addControl(drawControl);
 		
 		// send geojson data to shiny for new layer
-		map.on('draw:created', function (e) {
+		map.on('draw:created', function(e) {
 			// init
 			var layer = e.layer
 			var shape = layer.toGeoJSON();
 			// send geojson data to shiny
-			Shiny.onInputChange(id+'_create', $.extend({
+			Shiny.onInputChange(id+'_create', {
 				geojson: JSON.stringify(shape),
 				'.nonce': Math.random() // force reactivity
-			}));
+			});
 			drawnItems.addLayer(layer);
 			console.log('A feature was created!');
 		});
@@ -607,10 +607,10 @@ var dataframe = (function() {
 				geojson.push(JSON.stringify(temp))
 			});
 			// send geojson data to shiny
-			Shiny.onInputChange(id+'_edit', $.extend({
+			Shiny.onInputChange(id+'_edit', {
 				geojson: geojson,
 				'.nonce': Math.random()  // force reactivity
-			}));
+			});
 		});
     }}
   });
