@@ -1,9 +1,3 @@
-/* load scripts */
-
-
-
-
-
 /* global google: true */
 L.Google = L.Class.extend({
 	includes: L.Mixin.Events,
@@ -614,7 +608,7 @@ var dataframe = (function() {
 			layers.eachLayer(function(layer) {
 				temp = layer.toGeoJSON();
 				geojson.geojson.push(JSON.stringify(temp));
-			)};
+			});
 			// send geojson data to shiny
 			Shiny.onInputChange(mapId + '_edit', $.extend({
 				geojson: geojson,
