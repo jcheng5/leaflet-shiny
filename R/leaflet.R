@@ -104,17 +104,18 @@ leafletMap <- function(
       tags$head(
         tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet.css"),
 		tags$link(rel="stylesheet", type="text/css", href="leaflet/Leaflet.draw-0.2.3/dist/leaflet.draw.css"),
+		tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet-control-geocoder/Control.Geocoder.css"),
+		tags$link(rel="stylesheet", type="text/css", href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"),
+		tags$link(rel="stylesheet", type="text/css", href="leaflet/Leaflet.label/dist/leaflet.label.css"),
 		
         tags$script(src="leaflet/leaflet.js"),
 		
-		tags$script(src="https://maps.google.com/maps/api/js?v=3&sensor=false"),
-		
+		tags$script(src="https://maps.google.com/maps/api/js?v=3&sensor=false"),		
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/Leaflet.draw.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/Edit.Poly.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/Edit.SimpleShape.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/Edit.Circle.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/Edit.Rectangle.js"),
-
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/draw/handler/Draw.Feature.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/draw/handler/Draw.Polyline.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/draw/handler/Draw.Polygon.js"),
@@ -122,23 +123,38 @@ leafletMap <- function(
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/draw/handler/Draw.Rectangle.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/draw/handler/Draw.Circle.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/draw/handler/Draw.Marker.js"),
-
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/ext/LatLngUtil.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/ext/GeometryUtil.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/ext/LineUtil.Intersect.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/ext/Polyline.Intersect.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/ext/Polygon.Intersect.js"),
-
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/Control.Draw.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/Tooltip.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/Toolbar.js"),
-
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/draw/DrawToolbar.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/EditToolbar.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/EditToolbar.Edit.js"),
         tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/EditToolbar.Delete.js"),
+		tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/EditToolbar.Delete.js"),		
+		tags$script(src="leaflet/Leaflet.draw-0.2.3/src/edit/handler/EditToolbar.Delete.js"),
 
-        tags$script(src="leaflet/binding.js")
+		tags$script(src="leaflet/leaflet-control-geocoder/Control.Geocoder.js"),
+		tags$script(src="leaflet/Leaflet.EasyButton/easy-button.js"),
+		tags$script(src="leaflet/leaflet-plugins-1.2.0/layer/tile/Google.js"),
+		tags$script(src="leaflet/esri-leaflet-v1.0.0-rc.4/esri-leaflet.js"),
+		tags$script(src="leaflet/Leaflet.MakiMarkers/Leaflet.MakiMarkers.js"),
+			
+		tags$script(src="leaflet/Leaflet.label/src/Label.js"),
+		tags$script(src="leaflet/Leaflet.label/src/BaseMarkerMethods.js"),
+		tags$script(src="leaflet/Leaflet.label/src/Marker.Label.js"),
+		tags$script(src="leaflet/Leaflet.label/src/CircleMarker.Label.js"),
+		tags$script(src="leaflet/Leaflet.label/src/Path.Label.js"),
+		tags$script(src="leaflet/Leaflet.label/src/Map.Label.js"),
+		tags$script(src="leaflet/Leaflet.label/src/FeatureGroup.Label.js"),
+		
+		tags$script(src="leaflet/enterTextInput.js"),
+        
+		tags$script(src="leaflet/binding.js")
       )
     ),
     tags$div(
