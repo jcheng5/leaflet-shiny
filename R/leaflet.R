@@ -98,7 +98,7 @@ leafletMap <- function(
         tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet.css"),
 		tags$link(rel="stylesheet", type="text/css", href="leaflet/Leaflet.draw-0.2.3/dist/leaflet.draw.css"),
 		tags$link(rel="stylesheet", type="text/css", href="leaflet/leaflet-control-geocoder/Control.Geocoder.css"),
-		tags$link(rel="stylesheet", type="text/css", href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"),
+		tags$link(rel="stylesheet", type="text/css", href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"),
 		tags$link(rel="stylesheet", type="text/css", href="leaflet/Leaflet.label/dist/leaflet.label.css"),
 		
         tags$script(src="leaflet/leaflet.js"),
