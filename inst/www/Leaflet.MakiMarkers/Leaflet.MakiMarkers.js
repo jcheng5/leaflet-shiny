@@ -9,7 +9,7 @@
  *   var icon = L.MakiMarkers.icon({icon: "rocket", color: "#b0b", size: "m"});
  *
  * License:
- *   MIT: https://jseppi.mit-license.org/
+ *   MIT: http://jseppi.mit-license.org/
  */
  /*global L:false */
 (function () {

@@ -37,7 +37,7 @@ if(typeof window !== 'undefined' && window.L){
 (function(EsriLeaflet){
 
   // shallow object clone for feature properties and attributes
-  // from https://jsperf.com/cloning-an-object/2
+  // from http://jsperf.com/cloning-an-object/2
   function clone(obj) {
     var target = {};
     for (var i in obj) {
@@ -67,7 +67,7 @@ if(typeof window !== 'undefined' && window.L){
   }
 
   // determine if polygon ring coordinates are clockwise. clockwise signifies outer ring, counter-clockwise an inner ring
-  // or hole. this logic was found at https://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-
+  // or hole. this logic was found at http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-
   // points-are-in-clockwise-order
   function ringIsClockwise(ringToTest) {
     var total = 0,i = 0;
@@ -554,7 +554,7 @@ if(typeof window !== 'undefined' && window.L){
       // request is longer then 2000 characters and the browser does not support CORS, log a warning
       } else {
         if(console && console.warn){
-          console.warn('a request to ' + url + ' was longer then 2000 characters and this browser cannot make a cross-domain post request. Please use a proxy https://esri.github.io/esri-leaflet/api-reference/request.html');
+          console.warn('a request to ' + url + ' was longer then 2000 characters and this browser cannot make a cross-domain post request. Please use a proxy http://esri.github.io/esri-leaflet/api-reference/request.html');
           return;
         }
       }
@@ -562,7 +562,7 @@ if(typeof window !== 'undefined' && window.L){
       return httpRequest;
     },
     post: {
-      XMLhttps: function (url, params, callback, context) {
+      XMLHTTP: function (url, params, callback, context) {
         var httpRequest = createRequest(callback, context);
         httpRequest.open('POST', url);
         httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

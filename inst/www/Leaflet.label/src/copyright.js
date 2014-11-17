@@ -3,6 +3,6 @@
 	(c) 2012-2013, Jacob Toye, Smartrak
 
 	https://github.com/Leaflet/Leaflet.label
-	https://leafletjs.com
+	http://leafletjs.com
 	https://github.com/jacobtoye
 */

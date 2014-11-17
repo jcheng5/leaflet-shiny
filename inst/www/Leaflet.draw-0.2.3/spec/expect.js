@@ -523,7 +523,7 @@
   // https://gist.github.com/1044128/
   var getOuterHTML = function(element) {
     if ('outerHTML' in element) return element.outerHTML;
-    var ns = "https://www.w3.org/1999/xhtml";
+    var ns = "http://www.w3.org/1999/xhtml";
     var container = document.createElementNS(ns, '_');
     var elemProto = (window.HTMLElement || window.Element).prototype;
     var xmlSerializer = new XMLSerializer();

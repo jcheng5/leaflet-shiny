@@ -134,7 +134,7 @@ if(typeof window !== 'undefined' && window.L){
       // request is longer then 2000 characters and the browser does not support CORS, log a warning
       } else {
         if(console && console.warn){
-          console.warn('a request to ' + url + ' was longer then 2000 characters and this browser cannot make a cross-domain post request. Please use a proxy https://esri.github.io/esri-leaflet/api-reference/request.html');
+          console.warn('a request to ' + url + ' was longer then 2000 characters and this browser cannot make a cross-domain post request. Please use a proxy http://esri.github.io/esri-leaflet/api-reference/request.html');
           return;
         }
       }
@@ -142,7 +142,7 @@ if(typeof window !== 'undefined' && window.L){
       return httpRequest;
     },
     post: {
-      XMLhttps: function (url, params, callback, context) {
+      XMLHTTP: function (url, params, callback, context) {
         var httpRequest = createRequest(callback, context);
         httpRequest.open('POST', url);
         httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -225,7 +225,7 @@ if(typeof window !== 'undefined' && window.L){
 
 (function(EsriLeaflet){
 
-  var tileProtocol = (window.location.protocol !== 'https:') ? 'https:' : 'https:';
+  var tileProtocol = (window.location.protocol !== 'https:') ? 'http:' : 'https:';
 
   EsriLeaflet.Layers.BasemapLayer = L.TileLayer.extend({
     statics: {
