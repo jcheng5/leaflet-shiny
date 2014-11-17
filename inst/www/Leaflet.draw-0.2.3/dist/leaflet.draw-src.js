@@ -3,7 +3,7 @@
 	(c) 2012-2013, Jacob Toye, Smartrak
 
 	https://github.com/Leaflet/Leaflet.draw
-	http://leafletjs.com
+	https://leafletjs.com
 	https://github.com/jacobtoye
 */
 (function (window, document, undefined) {/*
@@ -1711,7 +1711,7 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
 
 L.Util.extend(L.LineUtil, {
 	// Checks to see if two line segments intersect. Does not handle degenerate cases.
-	// http://compgeom.cs.uiuc.edu/~jeffe/teaching/373/notes/x06-sweepline.pdf
+	// https://compgeom.cs.uiuc.edu/~jeffe/teaching/373/notes/x06-sweepline.pdf
 	segmentsIntersect: function (/*Point*/ p, /*Point*/ p1, /*Point*/ p2, /*Point*/ p3) {
 		return	this._checkCounterclockwise(p, p2, p3) !==
 				this._checkCounterclockwise(p1, p2, p3) &&

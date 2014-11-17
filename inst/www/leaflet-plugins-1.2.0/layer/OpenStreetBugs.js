@@ -1,7 +1,7 @@
 /* global alert: true */
 L.OpenStreetBugs = L.FeatureGroup.extend({
 	options : {
-		serverURL : 'http://openstreetbugs.schokokeks.org/api/0.1/',
+		serverURL : 'https://openstreetbugs.schokokeks.org/api/0.1/',
 		readonly : false,
 		setCookie : true,
 		username : 'NoName',
@@ -12,8 +12,8 @@ L.OpenStreetBugs = L.FeatureGroup.extend({
 		opacity : 0.7,
 		showOpen: true,
 		showClosed: true,
-		iconOpen: 'http://openstreetbugs.schokokeks.org/client/open_bug_marker.png',
-		iconClosed:'http://openstreetbugs.schokokeks.org/client/closed_bug_marker.png',
+		iconOpen: 'https://openstreetbugs.schokokeks.org/client/open_bug_marker.png',
+		iconClosed:'https://openstreetbugs.schokokeks.org/client/closed_bug_marker.png',
 		iconActive: undefined,
 		editArea: 0.01,
 		popupOptions: {autoPan: false},
@@ -176,7 +176,7 @@ L.OpenStreetBugs = L.FeatureGroup.extend({
 
 	osbIcon :  L.Icon.extend({
 		options: {
-			iconUrl: 'http://openstreetbugs.schokokeks.org/client/open_bug_marker.png',
+			iconUrl: 'https://openstreetbugs.schokokeks.org/client/open_bug_marker.png',
 			iconSize: new L.Point(22, 22),
 			shadowSize: new L.Point(0, 0),
 			iconAnchor: new L.Point(11, 11),
@@ -363,7 +363,7 @@ L.OpenStreetBugs = L.FeatureGroup.extend({
 		var ydelta = this.options.editArea || 0.01;
 		var xdelta = ydelta * 2;
 		var p = [ 'left='  + (x.lng - xdelta), 'bottom=' + (x.lat - ydelta), 'right=' + (x.lng + xdelta), 'top='    + (x.lat + ydelta)];
-		var url = 'http://localhost:8111/load_and_zoom?' + p.join('&');
+		var url = 'https://localhost:8111/load_and_zoom?' + p.join('&');
 		var frame = L.DomUtil.create('iframe', null);
 		frame.style.display = 'none';
 		frame.src = url;
@@ -379,7 +379,7 @@ L.OpenStreetBugs.setCSS = function() {
 	else
 		L.OpenStreetBugs.setCSS.done = true;
 
-	// See http://www.hunlock.com/blogs/Totally_Pwn_CSS_with_Javascript
+	// See https://www.hunlock.com/blogs/Totally_Pwn_CSS_with_Javascript
 	var idx = 0;
 	var addRule = function(selector, rules) {
 		var s = document.styleSheets[0];

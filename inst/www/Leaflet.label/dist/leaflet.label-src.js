@@ -3,7 +3,7 @@
 	(c) 2012-2013, Jacob Toye, Smartrak
 
 	https://github.com/Leaflet/Leaflet.label
-	http://leafletjs.com
+	https://leafletjs.com
 	https://github.com/jacobtoye
 */
 (function (window, document, undefined) {
