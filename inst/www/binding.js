@@ -213,6 +213,7 @@ var dataframe = (function() {
 		map.popups = new LayerStore(map);
 		map.rfeatures = new LayerStore(map);
 		map.rwfeatures = new LayerStore(map);
+		map.popupLayerId=-9999;
         
         // When the map is clicked, send the coordinates back to the app
         map.on('click', function(e) {
@@ -240,7 +241,7 @@ var dataframe = (function() {
         }
         setTimeout(updateBounds, 1);
         map.on('moveend', updateBounds);
-
+		
 		// initialise geocoder
 		var geocoder = L.Control.geocoder().addTo(map);
 		geocoder.markGeocode = function(result) {
@@ -340,15 +341,15 @@ var dataframe = (function() {
 			setLayerStyle(layer, defaultStyle, defaultIcon);
 			
 			// send geojson data to shiny
-			var radius=undefined;
-			if (layer.type=='Circle') {
-				radius=layer.getRadius();
+			var radii=undefined;
+			if (layer.type=='circle') {
+				radii=layer.getRadius();
 			}
 			var shape = layer.toGeoJSON();
 			Shiny.onInputChange(id+'_create', {
 				id: layer.id,
 				geojson: JSON.stringify(shape),
-				radius: radius,
+				radii: radii,
 				'.nonce': Math.random() // force reactivity
 			});
 			
@@ -369,16 +370,16 @@ var dataframe = (function() {
 				// update layer store
 				maps[id].rwfeatures._layers[layer.id]=layer;
 				// store geojson info
-				var radius=undefined;
-				if (layer.type=='Circle') {
-					radius=layer.getRadius();
+				var radii=undefined;
+				if (layer.type=='circle') {
+					radii=layer.getRadius();
 				}				
 				temp = layer.toGeoJSON();
 				geojson.push(
 					{
 						id: layer.id,
 						geojson: JSON.stringify(temp),
-						radius: radius
+						radii: radii
 					}
 				)
 			});
@@ -581,32 +582,50 @@ var dataframe = (function() {
 		this.rfeatures.get(layerId).bindLabel(text);
   }
   
+  function setLabel(mapId, layerId, label) {
+		// add label to object
+		options={opacity: 1}
+		if (label=='') {
+			options.opacity=0;
+		}
+		if (maps[mapId].rwfeatures._layers[layerId])
+			maps[mapId].rwfeatures.get(layerId).bindLabel(label, options);
+		if (maps[mapId].rfeatures._layers[layerId])
+			maps[mapId].rfeatures.get(layerId).bindLabel(label, options);
+		// send label to shiny
+		Shiny.onInputChange("map_note", 
+			{
+				id: layerId,
+				text: label,
+				'.nonce': Math.random()  // force reactivity
+			}
+		);
+	}
+  
   function textPopup(mapId, layerId, eventName) {
 	return function(e) {
-		var domelem=document.createElement('input');
-		domelem.id="note_input_text";
-		domelem.type="text";
-		domelem.value=e.target.note;
-		domelem.onkeyup=function(event) {
+		var domelem=document.createElement('div');
+		var textelem=document.createElement('input');
+		textelem.id="note_input_text";
+		textelem.type="text";
+		textelem.value=e.target.note;
+		textelem.onkeyup=function(event) {
 			if (event.keyCode==13) {
-				// add label to object
-				if (maps[mapId].rwfeatures._layers[layerId])
-					maps[mapId].rwfeatures.get(layerId).bindLabel(this.value);
-				if (maps[mapId].rfeatures._layers[layerId])
-					maps[mapId].rfeatures.get(layerId).bindLabel(this.value);
-				// send label to shiny
-				Shiny.onInputChange("map_note", 
-					{
-						id: layerId,
-						text: this.value,
-						'.nonce': Math.random()  // force reactivity
-					}
-				);
+				setLabel(mapId, layerId, event.target.value);
 			}
 		};
-		var popup = L.popup()
+		var labelelem=document.createElement('p');
+		labelelem.textContent='Press enter to save';
+		labelelem.style.color='#706d6c';
+		labelelem.style.margin=0;
+		labelelem.style.padding=0;
+		domelem.appendChild(textelem);
+		domelem.appendChild(labelelem);
+		// create popup
+		var popup = L.popup({closeButton: false})
 		.setLatLng([e.latlng.lat, e.latlng.lng])
 		.setContent(domelem);
+		// store popup
 		this.popups.add(popup, "map_add_note");
 	};
   }
