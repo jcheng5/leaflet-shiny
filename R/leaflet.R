@@ -64,24 +64,17 @@ createLeafletMap <- function(session, outputId) {
   
   structure(c(
     stub(setView(lat, lng, zoom, forceReset = FALSE)),
-    stub(addMarker(lat, lng, layerId=NULL, options=list(), eachOptions=list())),
-    stub(addCircleMarker(lat, lng, radius, layerId = NULL, options = list(), eachOptions=list())),
-    stub(clearMarkers()),
-    stub(clearShapes()),
     stub(fitBounds(lat1, lng1, lat2, lng2)),
-    stub(addCircle(lat, lng, radius, layerId = NULL, options=list(), eachOptions=list())),
-    stub(addRectangle(lat1, lng1, lat2, lng2, layerId = NULL, options=list(), eachOptions=list())),
-    stub(addPolygon(lat, lng, layerId, options, defaultOptions)),
-    stub(addGeoJSON(data, layerId)),
+    
+	stub(addFeature(layerId, data, mode, name, note, style)),
+    stub(removeFeatures(layerId)),
+    stub(clearFeatures(mode)),
+
     stub(showPopup(lat, lng, content, layerId = NULL, options=list())),
     stub(removePopup(layerId)),
     stub(clearPopups()),
-    stub(removeShape(layerId)),
-    stub(clearShapes()),
-    stub(clearGeoJSON()),
-    stub(removeGeoJSON(layerId)),
-    stub(removeMarker(layerId)),
-    stub(clearMarkers())
+
+    stub(addLabel(layerId, text, mode))
   ), class = "leaflet_map")
 }
 
@@ -89,7 +82,7 @@ createLeafletMap <- function(session, outputId) {
 leafletMap <- function(
   outputId, width, height,
   initialTileLayer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
-  initialTileLayerAttribution = HTML('&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
+  initialTileLayerAttribution = HTML('&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'), 
   options=NULL) {
   
   addResourcePath("leaflet", system.file("www", package="leaflet"))
@@ -151,9 +144,7 @@ leafletMap <- function(
 		tags$script(src="leaflet/Leaflet.label/src/Path.Label.js"),
 		tags$script(src="leaflet/Leaflet.label/src/Map.Label.js"),
 		tags$script(src="leaflet/Leaflet.label/src/FeatureGroup.Label.js"),
-		
-		tags$script(src="leaflet/enterTextInput.js"),
-        
+		        		
 		tags$script(src="leaflet/binding.js")
       )
     ),
