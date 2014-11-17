@@ -340,10 +340,15 @@ var dataframe = (function() {
 			setLayerStyle(layer, defaultStyle, defaultIcon);
 			
 			// send geojson data to shiny
+			var radius=undefined;
+			if (layer.type=='Circle') {
+				radius=layer.getRadius();
+			}
 			var shape = layer.toGeoJSON();
 			Shiny.onInputChange(id+'_create', {
-				geojson: JSON.stringify(shape),
 				id: layer.id,
+				geojson: JSON.stringify(shape),
+				radius: radius,
 				'.nonce': Math.random() // force reactivity
 			});
 			
@@ -364,11 +369,16 @@ var dataframe = (function() {
 				// update layer store
 				maps[id].rwfeatures._layers[layer.id]=layer;
 				// store geojson info
+				var radius=undefined;
+				if (layer.type=='Circle') {
+					radius=layer.getRadius();
+				}				
 				temp = layer.toGeoJSON();
 				geojson.push(
 					{
+						id: layer.id,
 						geojson: JSON.stringify(temp),
-						id: layer.id
+						radius: radius
 					}
 				)
 			});
