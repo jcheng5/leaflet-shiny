@@ -64,7 +64,7 @@ createLeafletMap <- function(session, outputId) {
   
   structure(c(
     stub(setView(lat, lng, zoom, forceReset = FALSE)),
-    stub(addMarker(lat, lng, layerId=NULL, options=list(), eachOptions=list())),
+    stub(addMarker(lat, lng, layerId=NULL, options=list(), eachOptions=list(),popup=list())),
     stub(addCircleMarker(lat, lng, radius, layerId = NULL, options = list(), eachOptions=list())),
     stub(clearMarkers()),
     stub(markerPopup(id)),
@@ -77,7 +77,7 @@ createLeafletMap <- function(session, outputId) {
     stub(showPopup(lat, lng, content, layerId = NULL, options=list())),
     stub(removePopup(layerId)),
     stub(clearPopups()),
-    stub(addWMS(url,layer,time,scaleRange,nBands)),
+    stub(addWMS(url,layer,time='',scaleRange='',nBands='',elevation='')),
     stub(clearWMS()),
     stub(removeShape(layerId)),
     stub(clearShapes()),
