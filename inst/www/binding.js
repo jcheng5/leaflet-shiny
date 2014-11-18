@@ -318,7 +318,13 @@ var dataframe = (function() {
 				}
 			},
 			edit: {
-				featureGroup: map.rwfeatures._group
+				featureGroup: map.rwfeatures._group,
+				edit: {selectedPathOptions: {
+					color: editStyle.color,
+					fillColor: editStyle.color,
+					opacity: editStyle.opacity,
+					weight: editStyle.weight
+				}}
 			}
 		});
 		map.addControl(drawControl);
