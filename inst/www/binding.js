@@ -615,16 +615,20 @@ var dataframe = (function() {
 		textelem.id="note_input_text";
 		textelem.type="text";
 		textelem.value=e.target.note;
+		textelem.style.padding=5;
+		textelem.style.margin='10px 0 0 0';
+		textelem.style.fontSize='12pt';
 		textelem.onkeyup=function(event) {
 			if (event.keyCode==13) {
 				setLabel(mapId, layerId, event.target.value);
 			}
 		};
-		var labelelem=document.createElement('p');
+		var labelelem=document.createElement('label');
+		labelelem.for="note_input_text";
 		labelelem.textContent='Press enter to save';
 		labelelem.style.color='#706d6c';
 		labelelem.style.margin=0;
-		labelelem.style.padding=0;
+		labelelem.style.fontSize='8pt';
 		domelem.appendChild(textelem);
 		domelem.appendChild(labelelem);
 		// create popup
