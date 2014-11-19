@@ -342,6 +342,7 @@ var dataframe = (function() {
 			layer.on('contextmenu', textPopup(id, layer.id, 'note'), this);
 			layer.on('mouseover', mouseHandler(id, layer.id, 'feature_mouseover'), this);
 			layer.on('mouseout', mouseHandler(id, layer.id, 'feature_mouseout'), this);
+			layer.bindLabel("Right click to add note.", {direction: "left"});
 			
 			// add custom style
 			setLayerStyle(layer, defaultStyle, defaultIcon);
@@ -532,7 +533,7 @@ var dataframe = (function() {
 				layer.on('mouseover', mouseHandler(this.id, layerId+'_'+(i+1), 'feature_mouseover'), this);
 				layer.on('mouseout', mouseHandler(this.id, layerId+'_'+(i+1), 'feature_mouseout'), this);
 				// set note
-				layer.bindLabel(feature.properties.note);
+				layer.bindLabel(feature.properties.note, {direction: "left"});
 				// post
 				++i;
 			}
@@ -581,16 +582,19 @@ var dataframe = (function() {
     this.popups.clear();
   };
   
-  methods.addLabel = function(layerId, text, mode) {
-	if (mode=="rw")
-		this.rwfeatures.get(layerId).bindLabel(text);
+  methods.addLabel = function(layerId, text, mode) {	
+	if (mode=="rw") {
+			this.rwfeatures.get(layerId).note=text;
+			this.rwfeatures.get(layerId).bindLabel(text, {direction: "left"});
+		}
 	if (mode=="r")
-		this.rfeatures.get(layerId).bindLabel(text);
+		this.rwfeatures.get(layerId).note=text;
+		this.rfeatures.get(layerId).bindLabel(text, {direction: "left"});
   }
   
   function setLabel(mapId, layerId, label) {
 		// add label to object
-		options={opacity: 1}
+		options={opacity: 1, direction: "left"};
 		if (label=='') {
 			options.opacity=0;
 		}
@@ -625,7 +629,7 @@ var dataframe = (function() {
 		};
 		var labelelem=document.createElement('label');
 		labelelem.for="note_input_text";
-		labelelem.textContent='Press enter to save';
+		labelelem.textContent='Press enter to save.';
 		labelelem.style.color='#706d6c';
 		labelelem.style.margin=0;
 		labelelem.style.fontSize='8pt';
