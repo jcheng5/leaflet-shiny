@@ -181,11 +181,30 @@ var dataframe = (function() {
         map.markers = new LayerStore(map);
         map.shapes = new LayerStore(map);
         map.popups = new LayerStore(map);
+        map.WMSLayers = new LayerStore(map);
         map.geojson = new LayerStore(map);
         
         // When the map is clicked, send the coordinates back to the app
         map.on('click', function(e) {
           Shiny.onInputChange(id + '_click', {
+            lat: e.latlng.lat,
+            lng: e.latlng.lng,
+            '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
+          });
+        });
+        
+        // When the map is dblclicked, send the coordinates back to the app
+        map.on('dblclick', function(e) {
+          Shiny.onInputChange(id + '_dblclick', {
+            lat: e.latlng.lat,
+            lng: e.latlng.lng,
+            '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
+          });
+        });        
+        
+        // When the mouse moves over map, send the coordinates back to the app
+        map.on('mousemove', function(e) {
+          Shiny.onInputChange(id + '_mousemove', {
             lat: e.latlng.lat,
             lng: e.latlng.lng,
             '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
@@ -207,6 +226,8 @@ var dataframe = (function() {
         
         map.on('moveend', updateBounds);
 
+        L.control.scale().addTo(map);
+
         var initialTileLayer = $el.data('initial-tile-layer');
         var initialTileLayerAttrib = $el.data('initial-tile-layer-attrib');
         if (initialTileLayer) {
@@ -217,6 +238,7 @@ var dataframe = (function() {
       }
     }
   });
+  
   Shiny.outputBindings.register(leafletOutputBinding, "leaflet-output-binding");
   
   Shiny.addCustomMessageHandler('leaflet', function(data) {
@@ -238,11 +260,13 @@ var dataframe = (function() {
     this.setView([lat, lng], zoom, forceReset);
   };
 
-  methods.addMarker = function(lat, lng, layerId, options, eachOptions) {
+
+  methods.addMarker = function(lat, lng, layerId, options, eachOptions, popup) {
     var df = dataframe.create()
       .col('lat', lat)
       .col('lng', lng)
       .col('layerId', layerId)
+      .col('popup', popup)
       .cbind(options)
       .cbind(eachOptions);
 
@@ -250,7 +274,9 @@ var dataframe = (function() {
       (function() {
         var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], df.get(i));
         var thisId = df.get(i, 'layerId');
+        var popup = df.get(i, 'popup');
         this.markers.add(marker, thisId);
+        marker.bindPopup(popup)
         marker.on('click', mouseHandler(this.id, thisId, 'marker_click'), this);
         marker.on('mouseover', mouseHandler(this.id, thisId, 'marker_mouseover'), this);
         marker.on('mouseout', mouseHandler(this.id, thisId, 'marker_mouseout'), this);
@@ -282,6 +308,11 @@ var dataframe = (function() {
   methods.removeMarker = function(layerId) {
     this.markers.remove(layerId);
   };
+
+  methods.markerPopup  = function(id) {
+    this.markers.get(id).openPopup();
+  };
+  
 
   methods.clearMarkers = function() {
     this.markers.clear();
@@ -327,6 +358,34 @@ var dataframe = (function() {
     }
   };
   
+    methods.addWMS = function(url,layer,time,scaleRange,nBands,elevation) {
+    //url = 'http://thredds.met.no/thredds/wms/topaz/dataset-topaz4-arc-myoceanv2-be?'
+    //layer = 'temperature'
+    //time = "2014-08-10T00:00:00.000Z"
+    //scaleRange = '270,310'
+    //nBands=255
+    
+    var self = this;
+    
+    var wms = L.tileLayer.wms(url, {
+    layers: layer,
+    format: 'image/png',
+    transparent: true,
+    time: time,
+    elevation: elevation,
+    COLORSCALERANGE:scaleRange,
+    NUMCOLORBANDS:nBands
+
+    });
+
+    self.WMSLayers.add(wms, 'wms');
+    
+    
+  };
+  
+  methods.clearWMS = function() {
+    this.WMSLayers.clear();
+  };
   /*
    * @param lat Array of latitude coordinates for polygons; different
    *   polygons are separated by null.
@@ -369,6 +428,7 @@ var dataframe = (function() {
     return function(e) {
       var lat = e.target.getLatLng ? e.target.getLatLng().lat : null;
       var lng = e.target.getLatLng ? e.target.getLatLng().lng : null;
+      //e.target.openpopup()
       Shiny.onInputChange(mapId + '_' + eventName, $.extend({
         id: layerId,
         lat: lat,
