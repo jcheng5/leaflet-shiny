@@ -76,6 +76,23 @@ be applied to all of the markers; `eachOptions` is the same except that each
 option value can be a vector, where each element corresponds to a single marker
 (recycling will be used if necessary).
 
+Of special note is `options['icon']`, which takes a list of options and produces an [L.Icon](http://leafletjs.com/reference.html#icon) to override the default marker image:
+
+```r
+map$addMarker(32, -70,
+  options=list(icon=list(
+    iconUrl='my-icon.png',
+    iconRetinaUrl='my-icon@2.png',
+    iconSize=c(38, 95),
+    iconAnchor=c(22, 94),
+    popupAnchor=c(-3, -76),
+    shadowUrl='my-icon-shadow.png',
+    shadowRetinaUrl='my-icon-shadow@2x.png',
+    shadowSize=c(68, 95),
+    shadowAnchor=c(22, 94))
+))
+```
+
 Events: `input$MAPID_marker_click`, `input$MAPID_marker_mouseover`,
 `input$MAPID_marker_mouseout`
 

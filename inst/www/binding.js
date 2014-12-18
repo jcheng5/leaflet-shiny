@@ -77,8 +77,9 @@ var dataframe = (function() {
       index = this.colnames.length;
       this.colnames.push(name);
     }
-    this.columns[index] = asArray(values);
-    this.colstrict[index] = !!strict;
+    
+	this.columns[index] = asArray(values);
+	this.colstrict[index] = !!strict;
 
     // TODO: Validate strictness (ensure lengths match up with other stricts)
 
@@ -242,13 +243,25 @@ var dataframe = (function() {
     var df = dataframe.create()
       .col('lat', lat)
       .col('lng', lng)
-      .col('layerId', layerId)
-      .cbind(options)
+      .col('layerId', layerId);
+	  
+	  var optionsArray = []
+	  for (var key in options) {
+		optionsArray.push(options[key]);
+	  }
+	  optionsArray.reverse()
+	  
+      df.col('options', optionsArray)
       .cbind(eachOptions);
 
     for (var i = 0; i < df.nrow(); i++) {
       (function() {
-        var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], df.get(i));
+	  	var options = df.get(i, 'options');
+		if ('icon' in options) {
+			options['icon'] = L.icon(options['icon']);
+		}
+		
+        var marker = L.marker([df.get(i, 'lat'), df.get(i, 'lng')], options);
         var thisId = df.get(i, 'layerId');
         this.markers.add(marker, thisId);
         marker.on('click', mouseHandler(this.id, thisId, 'marker_click'), this);
