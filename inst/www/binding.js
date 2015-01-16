@@ -334,10 +334,10 @@ var dataframe = (function() {
 
   methods.addRectangle = function(lat1, lng1, lat2, lng2, layerId, options, eachOptions) {
     var df = dataframe.create()
-      .col('lat1', lat)
-      .col('lng1', lng)
-      .col('lat2', lat)
-      .col('lng2', lng)
+      .col('lat1', lat1)
+      .col('lng1', lng1)
+      .col('lat2', lat2)
+      .col('lng2', lng2)
       .col('layerId', layerId)
       .cbind(options)
       .cbind(eachOptions);
