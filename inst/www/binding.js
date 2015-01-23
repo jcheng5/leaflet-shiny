@@ -173,6 +173,10 @@ var dataframe = (function() {
         var leafletOptions = JSON.parse(
           $el.children('script.leaflet-options').text()
         );
+        
+ 
+        
+
         map = L.map(id, leafletOptions);
         map.id = id;
         $el.data('leaflet-map', map);
@@ -227,14 +231,44 @@ var dataframe = (function() {
         map.on('moveend', updateBounds);
 
         L.control.scale().addTo(map);
+        
+               
+        var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + 
+                     '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+    		             'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            mbUrl = 'https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png',
+            osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '+
+                      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
-        var initialTileLayer = $el.data('initial-tile-layer');
-        var initialTileLayerAttrib = $el.data('initial-tile-layer-attrib');
-        if (initialTileLayer) {
-          L.tileLayer(initialTileLayer, {
-            attribution: initialTileLayerAttrib
-          }).addTo(map);
-        }
+	      var grayscale   = L.tileLayer(mbUrl, {id: 'davesteps.l16o6k07', attribution: mbAttr}).setZIndex(0),
+		        streets  = L.tileLayer(mbUrl, {id: 'davesteps.g7goph40',   attribution: mbAttr}).setZIndex(1),
+		        sat  = L.tileLayer(mbUrl, {id: 'davesteps.l16o9fdg',   attribution: mbAttr}).setZIndex(2),
+		        dark  = L.tileLayer(mbUrl, {id: "davesteps.l16o88df",   attribution: mbAttr}).setZIndex(3),
+		        osm  = L.tileLayer(osmUrl, {attribution: osmAttr}).setZIndex(4);
+		        
+
+
+        
+        var baseMaps = {
+            "Open Street Map":osm,
+            "Grayscale": grayscale,
+            "Pretty": streets,
+            "Satellite":sat,
+            "Mission Control":dark
+
+        };
+        
+        L.control.layers(baseMaps).addTo(map);
+
+        osm.addTo(map);
+        //var initialTileLayer = grayscale;//$el.data('initial-tile-layer');
+        //var initialTileLayerAttrib = $el.data('initial-tile-layer-attrib');
+        //if (initialTileLayer) {
+        //  L.tileLayer(initialTileLayer, {
+      //      attribution: initialTileLayerAttrib
+        //  }).addTo(map);
+        //}
       }
     }
   });
@@ -376,7 +410,7 @@ var dataframe = (function() {
     COLORSCALERANGE:scaleRange,
     NUMCOLORBANDS:nBands
 
-    });
+    }).setZIndex(10);
 
     self.WMSLayers.add(wms, 'wms');
     
@@ -501,6 +535,10 @@ var dataframe = (function() {
 
   methods.clearPopups = function() {
     this.popups.clear();
+  };
+  
+  methods.clearGeoJSON = function() {
+    this.geojson.clear();
   };
   
   function LayerStore(map) {
