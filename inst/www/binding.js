@@ -392,27 +392,14 @@ var dataframe = (function() {
     }
   };
   
-    methods.addWMS = function(url,layer,time,scaleRange,nBands,elevation) {
-    //url = 'http://thredds.met.no/thredds/wms/topaz/dataset-topaz4-arc-myoceanv2-be?'
-    //layer = 'temperature'
-    //time = "2014-08-10T00:00:00.000Z"
-    //scaleRange = '270,310'
-    //nBands=255
-    
-    var self = this;
-    
-    var wms = L.tileLayer.wms(url, {
-    layers: layer,
-    format: 'image/png',
-    transparent: true,
-    time: time,
-    elevation: elevation,
-    COLORSCALERANGE:scaleRange,
-    NUMCOLORBANDS:nBands
+    //methods.addWMS = function(url,layer,map,time,scaleRange,nBands,elevation) {
+    methods.addWMS = function(url,options) {
 
-    }).setZIndex(10);
+    
+    //var wms = L.tileLayer.wms(url,{layers:layer}).setZIndex(10);
+    var wms = L.tileLayer.wms(url,options).setZIndex(10);
 
-    self.WMSLayers.add(wms, 'wms');
+    this.WMSLayers.add(wms, 'wms');
     
     
   };
