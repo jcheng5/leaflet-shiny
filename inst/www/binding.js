@@ -619,9 +619,9 @@ var dataframe = (function() {
 		textelem.id="note_input_text";
 		textelem.type="text";
 		textelem.value=e.target.note;
-		textelem.style.padding=5;
+		// textelem.style.padding=5;
 		// textelem.style.margin='10px 0 0 0';
-		textelem.style.margin='1px 0 0 0';
+		// textelem.style.margin='1px 0 0 0';
 		textelem.style.fontSize='12pt';
 		textelem.onkeyup=function(event) {
 			if (event.keyCode==13) {
