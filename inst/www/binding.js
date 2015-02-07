@@ -615,15 +615,15 @@ var dataframe = (function() {
   function textPopup(mapId, layerId, eventName) {
 	return function(e) {
 		var domelem=document.createElement('div');
+		domelem.style.width='315px';
 		var textelem=document.createElement('input');
 		textelem.id="note_input_text";
 		textelem.type="text";
-		textelem.size=40;
 		textelem.value=e.target.note;
 		textelem.style.padding=5;
 		textelem.style.margin='10px 0 0 0';
 		textelem.style.fontSize='12pt';
-		// textelem.style.width='90%';
+		textelem.style.width='90%';
 		textelem.onkeyup=function(event) {
 			if (event.keyCode==13) {
 				setLabel(mapId, layerId, event.target.value);
