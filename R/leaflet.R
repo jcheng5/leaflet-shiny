@@ -80,6 +80,8 @@ createLeafletMap <- function(session, outputId) {
     stub(clearPopups()),
     #stub(addWMS(url,layer='',map='',time='',scaleRange='',nBands='',elevation='')),
     stub(addWMS(url,options=list())),
+    stub(addImage(url,lat1,lat2,lon1,lon2)),
+    stub(clearImage()),
     #stub(addWMS(url,layer)),
     stub(clearWMS()),
     stub(removeShape(layerId)),

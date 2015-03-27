@@ -187,6 +187,7 @@ var dataframe = (function() {
         map.popups = new LayerStore(map);
         map.WMSLayers = new LayerStore(map);
         map.geojson = new LayerStore(map);
+        map.imgOverlays = new LayerStore(map);
         
         // When the map is clicked, send the coordinates back to the app
         map.on('click', function(e) {
@@ -393,19 +394,26 @@ var dataframe = (function() {
   };
   
     //methods.addWMS = function(url,layer,map,time,scaleRange,nBands,elevation) {
-    methods.addWMS = function(url,options) {
-
-    
+  methods.addWMS = function(url,options) {
     //var wms = L.tileLayer.wms(url,{layers:layer}).setZIndex(10);
     var wms = L.tileLayer.wms(url,options).setZIndex(10);
-
-    this.WMSLayers.add(wms, 'wms');
-    
-    
+    this.WMSLayers.add(wms, 'wms');    
+  };
+  
+    //methods.addWMS = function(url,layer,map,time,scaleRange,nBands,elevation) {
+  methods.addImage = function(url,lat1,lat2,lon1,lon2) {   
+    //var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+    var imageBounds = [[lat1, lon1], [lat2, lon2]];
+    var img = L.imageOverlay(url, imageBounds);
+    this.imgOverlays.add(img, 'img');    
   };
   
   methods.clearWMS = function() {
     this.WMSLayers.clear();
+  };
+  
+  methods.clearImage = function() {
+    this.imgOverlays.clear();
   };
   /*
    * @param lat Array of latitude coordinates for polygons; different
